@@ -19,15 +19,15 @@
     "wheel": [
       {
         "module": "pywinrm",
-        "input_file": "wheels/pywinrm-0.2.2-py2.py3-none-any.whl"
+        "input_file": "wheels/pywinrm/pywinrm-0.2.2-py2.py3-none-any.whl"
       },
       {
         "module": "ntlm_auth",
-        "input_file": "wheels/ntlm_auth-1.0.5-py2.py3-none-any.whl"
+        "input_file": "wheels/ntlm_auth/ntlm_auth-1.0.5-py2.py3-none-any.whl"
       },
       {
         "module": "requests_ntlm",
-        "input_file": "wheels/requests_ntlm-1.0.0-py2.py3-none-any.whl"
+        "input_file": "wheels/requests_ntlm/requests_ntlm-1.0.0-py2.py3-none-any.whl"
       }
     ]
   },
