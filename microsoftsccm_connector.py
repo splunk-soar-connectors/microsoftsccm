@@ -16,6 +16,7 @@
 import json
 from winrm.protocol import Protocol
 from winrm.exceptions import InvalidCredentialsError
+from winrm.exceptions import WinRMTransportError
 from requests import exceptions
 
 # Phantom App imports
@@ -98,6 +99,14 @@ class MicrosoftsccmConnector(BaseConnector):
             self.debug_print(MSSCCM_ERR_SERVER_CONNECTION, conn_err)
             return action_result.set_status(phantom.APP_ERROR, MSSCCM_ERR_SERVER_CONNECTION,
                                             conn_err), resp_output
+        except WinRMTransportError as transport_err:
+            self.debug_print(MSSCCM_TRANSPORT_ERR, transport_err)
+            return action_result.set_status(phantom.APP_ERROR, MSSCCM_TRANSPORT_ERR,
+                                            transport_err), resp_output
+        except Exception as e:
+            self.debug_print(MSSCCM_EXCEPTION_OCCURRED, e)
+            return action_result.set_status(phantom.APP_ERROR, MSSCCM_EXCEPTION_OCCURRED,
+                                            e), resp_output
 
         try:
             command_id = protocol.run_command(shell_id, ps_command)
