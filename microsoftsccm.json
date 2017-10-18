@@ -9,7 +9,7 @@
   "product_version_regex": ".*",
   "publisher": "Phantom",
   "license": "Copyright Phantom 2017",
-  "app_version": "1.0.1",
+  "app_version": "1.0.2",
   "utctime_updated": "2017-10-05T09:27:24.323483Z",
   "package_name": "phantom_microsoftsccm",
   "main_module": "microsoftsccm_connector.pyc",
