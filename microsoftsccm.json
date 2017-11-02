@@ -77,7 +77,7 @@
       "versions": "EQ(*)"
     },
     {
-      "action": "install updates",
+      "action": "deploy patch",
       "identifier": "install_updates",
       "description": "Deploy software updates",
       "verbose": "This action will install the specified software update on all the clients belonging to <b>collection_name</b>. The software update should be downloaded on the SCCM site server before installing it.",
@@ -167,7 +167,7 @@
       "versions": "EQ(*)"
     },
     {
-      "action": "list updates",
+      "action": "list patches",
       "identifier": "list_updates",
       "description": "List all software updates",
       "verbose": "Software updates are ordered by software title.",
@@ -285,7 +285,7 @@
       "versions": "EQ(*)"
     },
     {
-      "action": "list collections",
+      "action": "list device groups",
       "identifier": "list_collections",
       "description": "List all device collections",
       "verbose": "",
