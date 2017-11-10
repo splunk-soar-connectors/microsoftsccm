@@ -36,8 +36,6 @@
       "description": "Server URL",
       "data_type": "string",
       "required": true,
-      "value_list": [],
-      "default": "",
       "order": 0
     },
     "verify_server_cert": {
@@ -51,8 +49,6 @@
       "description": "Username",
       "data_type": "string",
       "required": true,
-      "value_list": [],
-      "default": "",
       "order": 2
     },
     "password": {
