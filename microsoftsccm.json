@@ -49,16 +49,12 @@
       "description": "Username",
       "data_type": "string",
       "required": true,
-      "value_list": [],
-      "default": "",
       "order": 2
     },
     "password": {
       "description": "Password",
       "data_type": "password",
       "required": true,
-      "value_list": [],
-      "default": "",
       "order": 3
     }
   },
