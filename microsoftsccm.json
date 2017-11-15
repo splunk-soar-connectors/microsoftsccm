@@ -5,7 +5,7 @@
   "type": "endpoint",
   "product_vendor": "Microsoft",
   "logo": "microsoftsccm.png",
-  "product_name": "Microsoft SCCM",
+  "product_name": "SCCM",
   "product_version_regex": ".*",
   "publisher": "Phantom",
   "license": "Copyright (c) Phantom Cyber Corporation, 2017",
@@ -13,21 +13,21 @@
   "utctime_updated": "2017-11-14T22:20:52.000000Z",
   "package_name": "phantom_microsoftsccm",
   "main_module": "microsoftsccm_connector.pyc",
-  "min_phantom_version": "3.0.251",
+  "min_phantom_version": "2.0.251",
   "app_wizard_version": "1.0.0",
   "pip_dependencies": {
     "wheel": [
       {
         "module": "pywinrm",
-        "input_file": "wheels/pywinrm/pywinrm-0.2.2-py2.py3-none-any.whl"
+        "input_file": "wheels/pywinrm-0.2.2-py2.py3-none-any.whl"
       },
       {
         "module": "ntlm_auth",
-        "input_file": "wheels/ntlm_auth/ntlm_auth-1.0.5-py2.py3-none-any.whl"
+        "input_file": "wheels/ntlm_auth-1.0.5-py2.py3-none-any.whl"
       },
       {
         "module": "requests_ntlm",
-        "input_file": "wheels/requests_ntlm/requests_ntlm-1.0.0-py2.py3-none-any.whl"
+        "input_file": "wheels/requests_ntlm-1.0.0-py2.py3-none-any.whl"
       }
     ]
   },
@@ -72,30 +72,30 @@
     },
     {
       "action": "deploy patch",
-      "identifier": "install_updates",
-      "description": "Deploy software updates",
-      "verbose": "This action will install the specified software update on all the clients belonging to <b>collection_name</b>. The software update should be downloaded on the SCCM site server before installing it.",
+      "identifier": "deploy_patch",
+      "description": "Deploy patch",
+      "verbose": "This action will deploy the specified software patch on all the clients belonging to <b>device_group_name</b>. The software patch should be downloaded on the SCCM site server before deploying it.",
       "type": "generic",
       "read_only": true,
       "parameters": {
-        "software_update_name": {
-          "description": "Software Update Name",
+        "software_patch_name": {
+          "description": "Software Patch Name",
           "data_type": "string",
           "required": true,
           "primary": true,
           "order": 0,
           "contains": [
-            "sccm software update name"
+            "sccm software patch name"
           ]
         },
-        "collection_name": {
-          "description": "Collection Name",
+        "device_group_name": {
+          "description": "Device Group Name",
           "data_type": "string",
           "required": true,
           "primary": true,
           "order": 1,
           "contains": [
-            "sccm collection name"
+            "sccm device group name"
           ]
         }
       },
@@ -113,28 +113,28 @@
           "data_path": "action_result.message",
           "data_type": "string",
           "example_values": [
-            "Update installed successfully"
+            "Patch deployed successfully"
           ]
         },
         {
-          "data_path": "action_result.parameter.software_update_name",
+          "data_path": "action_result.parameter.software_patch_name",
           "data_type": "string",
           "contains": [
-            "sccm software update name"
+            "sccm software patch name"
           ],
-          "column_name": "Software Update Name",
+          "column_name": "Software Patch Name",
           "column_order": 1,
           "example_values": [
             "Security Update for Microsoft .NET Framework 4.5 on Windows 8 and Windows Server 2012 for x64-based Systems (KB2840632)"
           ]
         },
         {
-          "data_path": "action_result.parameter.collection_name",
+          "data_path": "action_result.parameter.device_group_name",
           "data_type": "string",
           "contains": [
-            "sccm collection name"
+            "sccm device group name"
           ],
-          "column_name": "Collection Name",
+          "column_name": "Device Group Name",
           "column_order": 2,
           "example_values": [
             "Test"
@@ -162,9 +162,9 @@
     },
     {
       "action": "list patches",
-      "identifier": "list_updates",
-      "description": "List all software updates",
-      "verbose": "Software updates are ordered by software title.",
+      "identifier": "list_patches",
+      "description": "List all software patches",
+      "verbose": "Software patches are ordered by software title.",
       "type": "investigate",
       "read_only": true,
       "parameters": {},
@@ -218,7 +218,7 @@
             "Office XP Service Pack 3 for Access 2002 Runtime"
           ],
           "contains": [
-            "sccm software update name"
+            "sccm software patch name"
           ]
         },
         {
@@ -246,11 +246,11 @@
           "data_path": "action_result.message",
           "data_type": "string",
           "example_values": [
-            "Total software updates: 1146"
+            "Total software patches: 1146"
           ]
         },
         {
-          "data_path": "action_result.summary.total_software_updates",
+          "data_path": "action_result.summary.total_software_patches",
           "data_type": "numeric",
           "example_values": [
             1146
@@ -273,15 +273,15 @@
       ],
       "render": {
         "type": "custom",
-        "title": "List Updates",
+        "title": "List patches",
         "view": "microsoftsccm_view.display_view"
       },
       "versions": "EQ(*)"
     },
     {
       "action": "list device groups",
-      "identifier": "list_collections",
-      "description": "List all device collections",
+      "identifier": "list_device_groups",
+      "description": "List all device groups",
       "verbose": "",
       "type": "investigate",
       "read_only": true,
@@ -336,7 +336,7 @@
             "All Systems"
           ],
           "contains": [
-            "sccm collection name"
+            "sccm device group name"
           ]
         },
         {
@@ -542,11 +542,11 @@
           "data_path": "action_result.message",
           "data_type": "string",
           "example_values": [
-            "Total collections: 5"
+            "Total device groups: 5"
           ]
         },
         {
-          "data_path": "action_result.summary.total_collections",
+          "data_path": "action_result.summary.total_device_groups",
           "data_type": "numeric",
           "example_values": [
             5
@@ -569,7 +569,7 @@
       ],
       "render": {
         "type": "custom",
-        "title": "List Collections",
+        "title": "List Device Groups",
         "view": "microsoftsccm_view.display_view"
       },
       "versions": "EQ(*)"

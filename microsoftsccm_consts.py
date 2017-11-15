@@ -26,26 +26,26 @@ MSSCCM_TEST_CONNECTIVITY_FAIL = "Test Connectivity Failed."
 MSSCCM_TEST_CONNECTIVITY_PASS = "Test Connectivity Passed"
 MSSCCM_PS_COMMAND = 'powershell -command "{command}"'
 MSSCCM_JSON_FORMAT_ERROR = "JSON format error"
-MSSCCM_PARAM_SF_UPDATE_NAME = "software_update_name"
-MSSCCM_PARAM_COLLECTION_NAME = "collection_name"
-MSSCCM_GET_SOFTWARE_UPDATES = 'powershell -command "Import-Module ' \
+MSSCCM_PARAM_PATCH_NAME = "software_patch_name"
+MSSCCM_PARAM_DEVICE_GROUP_NAME = "device_group_name"
+MSSCCM_GET_SOFTWARE_PATCHES = 'powershell -command "Import-Module ' \
                               '($Env:SMS_ADMIN_UI_PATH.Substring(0,$Env:SMS_ADMIN_UI_PATH.Length-5)' \
                               ' + {q}\ConfigurationManager.psd1{q});$PSD = Get-PSDrive -PSProvider ' \
                               'CMSite;CD {q}$($PSD):{q};Get-CMSoftwareUpdate -Fast | Select-Object -Property ' \
                               'ArticleID, LocalizedDisplayName, BulletinID, PercentCompliant, IsDeployed, DatePosted,' \
                               ' DateRevised, IsSuperseded, IsExpired | ConvertTo-Csv | ConvertFrom-Csv | ' \
                               'ConvertTo-Json;"'
-MSSCCM_INSTALL_SOFTWARE_UPDATES = 'powershell -command " ' \
+MSSCCM_DEPLOY_SOFTWARE_PATCHES = 'powershell -command " ' \
                                   'Import-Module ($Env:SMS_ADMIN_UI_PATH.Substring(0,$Env:SMS_ADMIN_UI_PATH.Length-5)' \
                                   ' + {q}\ConfigurationManager.psd1{q});$PSD = ' \
                                   'Get-PSDrive -PSProvider CMSite;CD {q}$($PSD):{q}; Start-CMSoftwareUpdateDeployment' \
-                                  ' -SoftwareUpdateName {q}{name}{q} -CollectionName {q}{collection_name}{q} ' \
+                                  ' -SoftwareUpdateName {q}{name}{q} -CollectionName {q}{device_group_name}{q} ' \
                                   '-DeploymentType Required -VerbosityLevel AllMessages -TimeBasedOn LocalTime ' \
                                   '-UserNotification DisplaySoftwareCenterOnly -ProtectedType RemoteDistributionPoint' \
                                   ' -UnprotectedType UnprotectedDistributionPoint -GenerateSuccessAlert $True' \
                                   ' -DisableOperationsManagerAlert $True -GenerateOperationsManagerAlert $True' \
                                   ' -AcceptEula ;"'
-MSSCCM_GET_DEVICE_COLLECTION = 'powershell -command "Import-Module ' \
+MSSCCM_GET_DEVICE_GROUPS = 'powershell -command "Import-Module ' \
                                '($Env:SMS_ADMIN_UI_PATH.Substring(0,$Env:SMS_ADMIN_UI_PATH.Length-5) + ' \
                                '{q}\ConfigurationManager.psd1{q}); ' \
                                '$PSD = Get-PSDrive -PSProvider' \
