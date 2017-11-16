@@ -5,7 +5,7 @@
   "type": "endpoint",
   "product_vendor": "Microsoft",
   "logo": "microsoftsccm.png",
-  "product_name": "Microsoft SCCM",
+  "product_name": "SCCM",
   "product_version_regex": ".*",
   "publisher": "Phantom",
   "license": "Copyright (c) Phantom Cyber Corporation, 2017",
