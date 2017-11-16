@@ -52,7 +52,7 @@ def parsed_data(provides, data):
     """
 
     boolean_dict = {"True": "Yes", "False": "No"}
-    if provides == "list updates":
+    if provides == "list patches":
         for item in data:
             try:
                 item["IsDeployed"] = boolean_dict[item["IsDeployed"]]
@@ -80,9 +80,9 @@ def display_view(provides, all_app_runs, context):
                 continue
             results.append(ctx_result)
 
-    return_page = "microsoftsccm_software_updates.html"
+    return_page = "microsoftsccm_patches.html"
 
-    if provides == "list collections":
-        return_page = "microsoftsccm_device_collections.html"
+    if provides == "list device groups":
+        return_page = "microsoftsccm_device_groups.html"
 
     return return_page

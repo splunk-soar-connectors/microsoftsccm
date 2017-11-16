@@ -59,7 +59,7 @@ class MicrosoftsccmConnector(BaseConnector):
 
         if phantom.is_fail(status):
             self.debug_print(action_result.get_message())
-            self.save_progress("{0} Error: {1}".format(MSSCCM_TEST_CONNECTIVITY_FAIL, action_result.get_message()))
+            self.save_progress(MSSCCM_TEST_CONNECTIVITY_FAIL)
             return action_result.get_status()
 
         # Return success
@@ -124,8 +124,8 @@ class MicrosoftsccmConnector(BaseConnector):
 
         return action_result.set_status(phantom.APP_SUCCESS), resp_output
 
-    def _handle_install_updates(self, param):
-        """ This function is used to install software updates.
+    def _handle_deploy_patch(self, param):
+        """ This function is used to deploy software patches.
 
         :param param: dictionary of input parameters
         :return: status success/failure
@@ -137,24 +137,33 @@ class MicrosoftsccmConnector(BaseConnector):
         action_result = self.add_action_result(ActionResult(dict(param)))
 
         # Required values can be accessed directly
-        software_update_name = param[MSSCCM_PARAM_SF_UPDATE_NAME]
-        collection_name = param[MSSCCM_PARAM_COLLECTION_NAME]
+        software_patch_name = param[MSSCCM_PARAM_PATCH_NAME]
+        device_group_name = param[MSSCCM_PARAM_DEVICE_GROUP_NAME]
 
         # Execute Command
         status, response = self._execute_ps_command(action_result,
-                                                    MSSCCM_INSTALL_SOFTWARE_UPDATES.format(
-                                                        name=software_update_name,
-                                                        collection_name=collection_name, q='\\"'))
+                                                    MSSCCM_DEPLOY_SOFTWARE_PATCHES.format(
+                                                        name=software_patch_name,
+                                                        device_group_name=device_group_name, q='\\"'))
 
         # Something went wrong
         if phantom.is_fail(status):
             self.debug_print(action_result.get_message())
+            message = action_result.get_message()
+
+            if "ItemNotFoundException" in message:
+                message = "Software patch or Device group not found"
+
+            if "ObjectIsNotDownloaded" in message:
+                message = "Software patch is not downloaded on the SCCM server"
+
+            action_result.set_status(phantom.APP_ERROR, status_message=message)
             return action_result.get_status()
 
-        return action_result.set_status(phantom.APP_SUCCESS, "Update installed successfully")
+        return action_result.set_status(phantom.APP_SUCCESS, "Patch deployed successfully")
 
-    def _handle_list_updates(self, param):
-        """ This function is used to list all software updates.
+    def _handle_list_patches(self, param):
+        """ This function is used to list all software patches.
 
         :param param: dictionary of input parameters
         :return: status success/failure
@@ -166,7 +175,7 @@ class MicrosoftsccmConnector(BaseConnector):
         action_result = self.add_action_result(ActionResult(dict(param)))
 
         # Execute Command
-        status, response = self._execute_ps_command(action_result, MSSCCM_GET_SOFTWARE_UPDATES.format(q='\\"'))
+        status, response = self._execute_ps_command(action_result, MSSCCM_GET_SOFTWARE_PATCHES.format(q='\\"'))
 
         # Something went wrong
         if phantom.is_fail(status):
@@ -186,12 +195,12 @@ class MicrosoftsccmConnector(BaseConnector):
 
         # Update summary
         summary = action_result.update_summary({})
-        summary['total_software_updates'] = action_result.get_data_size()
+        summary['total_software_patches'] = action_result.get_data_size()
 
         return action_result.set_status(phantom.APP_SUCCESS)
 
-    def _handle_list_collections(self, param):
-        """ This function is used to list all device collection.
+    def _handle_list_device_groups(self, param):
+        """ This function is used to list all device groups.
 
         :param param: dictionary of input parameters
         :return: status success/failure
@@ -203,7 +212,7 @@ class MicrosoftsccmConnector(BaseConnector):
         action_result = self.add_action_result(ActionResult(dict(param)))
 
         # Execute Command
-        status, response = self._execute_ps_command(action_result, MSSCCM_GET_DEVICE_COLLECTION.format(q='\\"'))
+        status, response = self._execute_ps_command(action_result, MSSCCM_GET_DEVICE_GROUPS.format(q='\\"'))
 
         # Something went wrong
         if phantom.is_fail(status):
@@ -223,7 +232,7 @@ class MicrosoftsccmConnector(BaseConnector):
 
         # Update summary
         summary = action_result.update_summary({})
-        summary['total_collections'] = action_result.get_data_size()
+        summary['total_device_groups'] = action_result.get_data_size()
 
         return action_result.set_status(phantom.APP_SUCCESS)
 
@@ -235,10 +244,12 @@ class MicrosoftsccmConnector(BaseConnector):
         """
 
         # Dictionary mapping each action with its corresponding actions
-        action_mapping = {'install_updates': self._handle_install_updates,
-                          'test_connectivity': self._handle_test_connectivity,
-                          'list_updates': self._handle_list_updates,
-                          'list_collections': self._handle_list_collections}
+        action_mapping = {
+            'deploy_patch': self._handle_deploy_patch,
+            'test_connectivity': self._handle_test_connectivity,
+            'list_patches': self._handle_list_patches,
+            'list_device_groups': self._handle_list_device_groups
+        }
 
         action = self.get_action_identifier()
         action_execution_status = phantom.APP_SUCCESS
