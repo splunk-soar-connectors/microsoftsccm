@@ -13,7 +13,7 @@
   "utctime_updated": "2017-11-16T18:57:54.000000Z",
   "package_name": "phantom_microsoftsccm",
   "main_module": "microsoftsccm_connector.pyc",
-  "min_phantom_version": "2.0.251",
+  "min_phantom_version": "3.0.251",
   "app_wizard_version": "1.0.0",
   "pip_dependencies": {
     "wheel": [
