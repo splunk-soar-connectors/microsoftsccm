@@ -1,579 +1,578 @@
 {
-    "appid": "fa69bb98-54e2-460d-9f22-15fc2fa62429",
-    "name": "Microsoft SCCM",
-    "description": "This app integrates with Microsoft System Center Configuration Manager (SCCM) to execute investigative and generic actions",
-    "type": "endpoint",
-    "product_vendor": "Microsoft",
-    "logo": "logo_microsoft.svg",
-    "logo_dark": "logo_microsoft_dark.svg",
-    "product_name": "SCCM",
-    "product_version_regex": ".*",
-    "publisher": "Phantom",
-    "license": "Copyright (c) Phantom Cyber Corporation, 2017",
-    "app_version": "1.0.10",
-    "utctime_updated": "2017-12-21T03:22:33.000000Z",
-    "package_name": "phantom_microsoftsccm",
-    "main_module": "microsoftsccm_connector.pyc",
-    "min_phantom_version": "3.0.251",
-    "app_wizard_version": "1.0.0",
-    "pip_dependencies": {
-        "wheel": [
-            {
-                "module": "pywinrm",
-                "input_file": "wheels/pywinrm/pywinrm-0.2.2-py2.py3-none-any.whl"
-            },
-            {
-                "module": "ntlm_auth",
-                "input_file": "wheels/ntlm_auth/ntlm_auth-1.0.5-py2.py3-none-any.whl"
-            },
-            {
-                "module": "requests_ntlm",
-                "input_file": "wheels/requests_ntlm/requests_ntlm-1.0.0-py2.py3-none-any.whl"
-            }
-        ]
-    },
-    "configuration": {
-        "server_url": {
-            "description": "Server URL",
-            "data_type": "string",
-            "required": true,
-            "order": 0
-        },
-        "verify_server_cert": {
-            "description": "Verify server certificate",
-            "data_type": "boolean",
-            "required": false,
-            "default": false,
-            "order": 1
-        },
-        "username": {
-            "description": "Username",
-            "data_type": "string",
-            "required": true,
-            "order": 2
-        },
-        "password": {
-            "description": "Password",
-            "data_type": "password",
-            "required": true,
-            "order": 3
-        }
-    },
-    "actions": [
-        {
-            "action": "test connectivity",
-            "identifier": "test_connectivity",
-            "description": "Validate the asset configuration for connectivity using supplied configuration",
-            "verbose": "",
-            "type": "test",
-            "read_only": true,
-            "parameters": {},
-            "output": [],
-            "versions": "EQ(*)"
-        },
-        {
-            "action": "deploy patch",
-            "identifier": "deploy_patch",
-            "description": "Deploy patch",
-            "verbose": "This action will deploy the specified software patch on all the clients belonging to <b>device_group_name</b>. The software patch should be downloaded on the SCCM site server before deploying it.",
-            "type": "generic",
-            "read_only": true,
-            "parameters": {
-                "software_patch_name": {
-                    "description": "Software Patch Name",
-                    "data_type": "string",
-                    "required": true,
-                    "primary": true,
-                    "order": 0,
-                    "contains": [
-                        "sccm software patch name"
-                    ]
-                },
-                "device_group_name": {
-                    "description": "Device Group Name",
-                    "data_type": "string",
-                    "required": true,
-                    "primary": true,
-                    "order": 1,
-                    "contains": [
-                        "sccm device group name"
-                    ]
-                }
-            },
-            "output": [
-                {
-                    "data_path": "action_result.status",
-                    "data_type": "string",
-                    "column_name": "status",
-                    "column_order": 0,
-                    "example_values": [
-                        "success"
-                    ]
-                },
-                {
-                    "data_path": "action_result.parameter.device_group_name",
-                    "data_type": "string",
-                    "contains": [
-                        "sccm device group name"
-                    ],
-                    "column_name": "Device Group Name",
-                    "column_order": 2,
-                    "example_values": [
-                        "Test"
-                    ]
-                },
-                {
-                    "data_path": "action_result.parameter.software_patch_name",
-                    "data_type": "string",
-                    "contains": [
-                        "sccm software patch name"
-                    ],
-                    "column_name": "Software Patch Name",
-                    "column_order": 1,
-                    "example_values": [
-                        "Security Update for Microsoft .NET Framework 4.5 on Windows 8 and Windows Server 2012 for x64-based Systems (KB2840632)"
-                    ]
-                },
-                {
-                    "data_path": "action_result.message",
-                    "data_type": "string",
-                    "example_values": [
-                        "Patch deployed successfully"
-                    ]
-                },
-                {
-                    "data_path": "summary.total_objects",
-                    "data_type": "numeric",
-                    "example_values": [
-                        1
-                    ]
-                },
-                {
-                    "data_path": "summary.total_objects_successful",
-                    "data_type": "numeric",
-                    "example_values": [
-                        1
-                    ]
-                }
-            ],
-            "render": {
-                "type": "table"
-            },
-            "versions": "EQ(*)"
-        },
-        {
-            "action": "list patches",
-            "identifier": "list_patches",
-            "description": "List all software patches",
-            "verbose": "Software patches are ordered by software title.",
-            "type": "investigate",
-            "read_only": true,
-            "parameters": {},
-            "output": [
-                {
-                    "data_path": "action_result.status",
-                    "data_type": "string",
-                    "example_values": [
-                        "success"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.ArticleID",
-                    "data_type": "string",
-                    "example_values": [
-                        "834693"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.BulletinID",
-                    "data_type": "string",
-                    "example_values": [
-                        ""
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.DatePosted",
-                    "data_type": "string",
-                    "example_values": [
-                        "05-04-2012 03:21:35"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.DateRevised",
-                    "data_type": "string",
-                    "example_values": [
-                        "05-04-2012 03:21:35"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.IsDeployed",
-                    "data_type": "string",
-                    "example_values": [
-                        "False"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.IsExpired",
-                    "data_type": "string",
-                    "example_values": [
-                        "False"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.IsSuperseded",
-                    "data_type": "string",
-                    "example_values": [
-                        "False"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.LocalizedDisplayName",
-                    "data_type": "string",
-                    "example_values": [
-                        "Office XP Service Pack 3 for Access 2002 Runtime"
-                    ],
-                    "contains": [
-                        "sccm software patch name"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.PercentCompliant",
-                    "data_type": "string",
-                    "example_values": [
-                        "0"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.total_software_patches",
-                    "data_type": "numeric",
-                    "example_values": [
-                        1146
-                    ]
-                },
-                {
-                    "data_path": "action_result.message",
-                    "data_type": "string",
-                    "example_values": [
-                        "Total software patches: 1146"
-                    ]
-                },
-                {
-                    "data_path": "summary.total_objects",
-                    "data_type": "numeric",
-                    "example_values": [
-                        1
-                    ]
-                },
-                {
-                    "data_path": "summary.total_objects_successful",
-                    "data_type": "numeric",
-                    "example_values": [
-                        1
-                    ]
-                }
-            ],
-            "render": {
-                "type": "custom",
-                "title": "List patches",
-                "view": "microsoftsccm_view.display_view"
-            },
-            "versions": "EQ(*)"
-        },
-        {
-            "action": "list device groups",
-            "identifier": "list_device_groups",
-            "description": "List all device groups",
-            "verbose": "",
-            "type": "investigate",
-            "read_only": true,
-            "parameters": {},
-            "output": [
-                {
-                    "data_path": "action_result.status",
-                    "data_type": "string",
-                    "example_values": [
-                        "success"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.CollectionID",
-                    "data_type": "string",
-                    "example_values": [
-                        "SMS00001"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.CollectionRules",
-                    "data_type": "string",
-                    "example_values": [
-                        "Microsoft.ConfigurationManagement.ManagementProvider.IResultObject[]"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.CollectionType",
-                    "data_type": "string",
-                    "example_values": [
-                        "2"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.CollectionVariablesCount",
-                    "data_type": "string",
-                    "example_values": [
-                        "0"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.Comment",
-                    "data_type": "string",
-                    "example_values": [
-                        "All Systems"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.CurrentStatus",
-                    "data_type": "string",
-                    "example_values": [
-                        "1"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.HasProvisionedMember",
-                    "data_type": "string",
-                    "example_values": [
-                        "True"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.ISVData",
-                    "data_type": "string",
-                    "example_values": [
-                        ""
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.ISVDataSize",
-                    "data_type": "string",
-                    "example_values": [
-                        "0"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.ISVString",
-                    "data_type": "string",
-                    "example_values": [
-                        ""
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.IncludeExcludeCollectionsCount",
-                    "data_type": "string",
-                    "example_values": [
-                        "0"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.IsBuiltIn",
-                    "data_type": "string",
-                    "example_values": [
-                        "True"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.IsReferenceCollection",
-                    "data_type": "string",
-                    "example_values": [
-                        "True"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.LastChangeTime",
-                    "data_type": "string",
-                    "example_values": [
-                        "14-09-2017 10:41:40"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.LastMemberChangeTime",
-                    "data_type": "string",
-                    "example_values": [
-                        "20-09-2017 13:27:47"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.LastRefreshTime",
-                    "data_type": "string",
-                    "example_values": [
-                        "03-10-2017 22:30:55"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.LimitToCollectionID",
-                    "data_type": "string",
-                    "example_values": [
-                        ""
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.LimitToCollectionName",
-                    "data_type": "string",
-                    "example_values": [
-                        ""
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.LocalMemberCount",
-                    "data_type": "string",
-                    "example_values": [
-                        "3"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.MemberClassName",
-                    "data_type": "string",
-                    "example_values": [
-                        "SMS_CM_RES_COLL_SMS00001"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.MemberCount",
-                    "data_type": "string",
-                    "example_values": [
-                        "3"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.MonitoringFlags",
-                    "data_type": "string",
-                    "example_values": [
-                        "0"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.Name",
-                    "data_type": "string",
-                    "example_values": [
-                        "All Systems"
-                    ],
-                    "contains": [
-                        "sccm device group name"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.ObjectPath",
-                    "data_type": "string",
-                    "example_values": [
-                        ""
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.OwnedByThisSite",
-                    "data_type": "string",
-                    "example_values": [
-                        "True"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.PSComputerName",
-                    "data_type": "string",
-                    "example_values": [
-                        "SCCMSERVER.sccm.test"
-                    ],
-                    "contains": [
-                        "host name"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.PSShowComputerName",
-                    "data_type": "string",
-                    "example_values": [
-                        "False"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.PowerConfigsCount",
-                    "data_type": "string",
-                    "example_values": [
-                        "0"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.RefreshSchedule",
-                    "data_type": "string",
-                    "example_values": [
-                        "Microsoft.ConfigurationManagement.ManagementProvider.IResultObject[]"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.RefreshType",
-                    "data_type": "string",
-                    "example_values": [
-                        "4"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.ReplicateToSubSites",
-                    "data_type": "string",
-                    "example_values": [
-                        "True"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.ServiceWindowsCount",
-                    "data_type": "string",
-                    "example_values": [
-                        "0"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.SmsProviderObjectPath",
-                    "data_type": "string",
-                    "example_values": [
-                        "SMS_Collection.CollectionID=\"SMS00001\""
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.UseCluster",
-                    "data_type": "string",
-                    "example_values": [
-                        "False"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.total_device_groups",
-                    "data_type": "numeric",
-                    "example_values": [
-                        5
-                    ]
-                },
-                {
-                    "data_path": "action_result.message",
-                    "data_type": "string",
-                    "example_values": [
-                        "Total device groups: 5"
-                    ]
-                },
-                {
-                    "data_path": "summary.total_objects",
-                    "data_type": "numeric",
-                    "example_values": [
-                        1
-                    ]
-                },
-                {
-                    "data_path": "summary.total_objects_successful",
-                    "data_type": "numeric",
-                    "example_values": [
-                        1
-                    ]
-                }
-            ],
-            "render": {
-                "type": "custom",
-                "title": "List Device Groups",
-                "view": "microsoftsccm_view.display_view"
-            },
-            "versions": "EQ(*)"
-        }
+  "appid": "fa69bb98-54e2-460d-9f22-15fc2fa62429",
+  "name": "Microsoft SCCM",
+  "description": "This app integrates with Microsoft System Center Configuration Manager (SCCM) to execute investigative and generic actions",
+  "type": "endpoint",
+  "product_vendor": "Microsoft",
+  "logo": "microsoftsccm.png",
+  "product_name": "SCCM",
+  "product_version_regex": ".*",
+  "publisher": "Phantom",
+  "license": "Copyright (c) Phantom Cyber Corporation, 2017",
+  "app_version": "1.0.8",
+  "utctime_updated": "2017-11-16T23:09:52.000000Z",
+  "package_name": "phantom_microsoftsccm",
+  "main_module": "microsoftsccm_connector.pyc",
+  "min_phantom_version": "3.0.251",
+  "app_wizard_version": "1.0.0",
+  "pip_dependencies": {
+    "wheel": [
+      {
+        "module": "pywinrm",
+        "input_file": "wheels/pywinrm/pywinrm-0.2.2-py2.py3-none-any.whl"
+      },
+      {
+        "module": "ntlm_auth",
+        "input_file": "wheels/ntlm_auth/ntlm_auth-1.0.5-py2.py3-none-any.whl"
+      },
+      {
+        "module": "requests_ntlm",
+        "input_file": "wheels/requests_ntlm/requests_ntlm-1.0.0-py2.py3-none-any.whl"
+      }
     ]
+  },
+  "configuration": {
+    "server_url": {
+      "description": "Server URL",
+      "data_type": "string",
+      "required": true,
+      "order": 0
+    },
+    "verify_server_cert": {
+      "description": "Verify server certificate",
+      "data_type": "boolean",
+      "required": false,
+      "default": false,
+      "order": 1
+    },
+    "username": {
+      "description": "Username",
+      "data_type": "string",
+      "required": true,
+      "order": 2
+    },
+    "password": {
+      "description": "Password",
+      "data_type": "password",
+      "required": true,
+      "order": 3
+    }
+  },
+  "actions": [
+    {
+      "action": "test connectivity",
+      "identifier": "test_connectivity",
+      "description": "Validate the asset configuration for connectivity using supplied configuration",
+      "verbose": "",
+      "type": "test",
+      "read_only": true,
+      "parameters": {},
+      "output": [],
+      "versions": "EQ(*)"
+    },
+    {
+      "action": "deploy patch",
+      "identifier": "deploy_patch",
+      "description": "Deploy patch",
+      "verbose": "This action will deploy the specified software patch on all the clients belonging to <b>device_group_name</b>. The software patch should be downloaded on the SCCM site server before deploying it.",
+      "type": "generic",
+      "read_only": true,
+      "parameters": {
+        "software_patch_name": {
+          "description": "Software Patch Name",
+          "data_type": "string",
+          "required": true,
+          "primary": true,
+          "order": 0,
+          "contains": [
+            "sccm software patch name"
+          ]
+        },
+        "device_group_name": {
+          "description": "Device Group Name",
+          "data_type": "string",
+          "required": true,
+          "primary": true,
+          "order": 1,
+          "contains": [
+            "sccm device group name"
+          ]
+        }
+      },
+      "output": [
+        {
+          "data_path": "action_result.status",
+          "data_type": "string",
+          "column_name": "status",
+          "column_order": 0,
+          "example_values": [
+            "success"
+          ]
+        },
+        {
+          "data_path": "action_result.message",
+          "data_type": "string",
+          "example_values": [
+            "Patch deployed successfully"
+          ]
+        },
+        {
+          "data_path": "action_result.parameter.software_patch_name",
+          "data_type": "string",
+          "contains": [
+            "sccm software patch name"
+          ],
+          "column_name": "Software Patch Name",
+          "column_order": 1,
+          "example_values": [
+            "Security Update for Microsoft .NET Framework 4.5 on Windows 8 and Windows Server 2012 for x64-based Systems (KB2840632)"
+          ]
+        },
+        {
+          "data_path": "action_result.parameter.device_group_name",
+          "data_type": "string",
+          "contains": [
+            "sccm device group name"
+          ],
+          "column_name": "Device Group Name",
+          "column_order": 2,
+          "example_values": [
+            "Test"
+          ]
+        },
+        {
+          "data_path": "summary.total_objects",
+          "data_type": "numeric",
+          "example_values": [
+            1
+          ]
+        },
+        {
+          "data_path": "summary.total_objects_successful",
+          "data_type": "numeric",
+          "example_values": [
+            1
+          ]
+        }
+      ],
+      "render": {
+        "type": "table"
+      },
+      "versions": "EQ(*)"
+    },
+    {
+      "action": "list patches",
+      "identifier": "list_patches",
+      "description": "List all software patches",
+      "verbose": "Software patches are ordered by software title.",
+      "type": "investigate",
+      "read_only": true,
+      "parameters": {},
+      "output": [
+        {
+          "data_path": "action_result.data.*.IsDeployed",
+          "data_type": "string",
+          "example_values": [
+            "False"
+          ]
+        },
+        {
+          "data_path": "action_result.data.*.DateRevised",
+          "data_type": "string",
+          "example_values": [
+            "05-04-2012 03:21:35"
+          ]
+        },
+        {
+          "data_path": "action_result.data.*.BulletinID",
+          "data_type": "string",
+          "example_values": [
+            ""
+          ]
+        },
+        {
+          "data_path": "action_result.data.*.DatePosted",
+          "data_type": "string",
+          "example_values": [
+            "05-04-2012 03:21:35"
+          ]
+        },
+        {
+          "data_path": "action_result.data.*.PercentCompliant",
+          "data_type": "string",
+          "example_values": [
+            "0"
+          ]
+        },
+        {
+          "data_path": "action_result.data.*.ArticleID",
+          "data_type": "string",
+          "example_values": [
+            "834693"
+          ]
+        },
+        {
+          "data_path": "action_result.data.*.LocalizedDisplayName",
+          "data_type": "string",
+          "example_values": [
+            "Office XP Service Pack 3 for Access 2002 Runtime"
+          ],
+          "contains": [
+            "sccm software patch name"
+          ]
+        },
+        {
+          "data_path": "action_result.data.*.IsSuperseded",
+          "data_type": "string",
+          "example_values": [
+            "False"
+          ]
+        },
+        {
+          "data_path": "action_result.data.*.IsExpired",
+          "data_type": "string",
+          "example_values": [
+            "False"
+          ]
+        },
+        {
+          "data_path": "action_result.status",
+          "data_type": "string",
+          "example_values": [
+            "success"
+          ]
+        },
+        {
+          "data_path": "action_result.message",
+          "data_type": "string",
+          "example_values": [
+            "Total software patches: 1146"
+          ]
+        },
+        {
+          "data_path": "action_result.summary.total_software_patches",
+          "data_type": "numeric",
+          "example_values": [
+            1146
+          ]
+        },
+        {
+          "data_path": "summary.total_objects",
+          "data_type": "numeric",
+          "example_values": [
+            1
+          ]
+        },
+        {
+          "data_path": "summary.total_objects_successful",
+          "data_type": "numeric",
+          "example_values": [
+            1
+          ]
+        }
+      ],
+      "render": {
+        "type": "custom",
+        "title": "List patches",
+        "view": "microsoftsccm_view.display_view"
+      },
+      "versions": "EQ(*)"
+    },
+    {
+      "action": "list device groups",
+      "identifier": "list_device_groups",
+      "description": "List all device groups",
+      "verbose": "",
+      "type": "investigate",
+      "read_only": true,
+      "parameters": {},
+      "output": [
+        {
+          "data_path": "action_result.data.*.MemberClassName",
+          "data_type": "string",
+          "example_values": [
+            "SMS_CM_RES_COLL_SMS00001"
+          ]
+        },
+        {
+          "data_path": "action_result.data.*.LastRefreshTime",
+          "data_type": "string",
+          "example_values": [
+            "03-10-2017 22:30:55"
+          ]
+        },
+        {
+          "data_path": "action_result.data.*.ISVDataSize",
+          "data_type": "string",
+          "example_values": [
+            "0"
+          ]
+        },
+        {
+          "data_path": "action_result.data.*.PowerConfigsCount",
+          "data_type": "string",
+          "example_values": [
+            "0"
+          ]
+        },
+        {
+          "data_path": "action_result.data.*.LimitToCollectionName",
+          "data_type": "string",
+          "example_values": [
+            ""
+          ]
+        },
+        {
+          "data_path": "action_result.data.*.PSShowComputerName",
+          "data_type": "string",
+          "example_values": [
+            "False"
+          ]
+        },
+        {
+          "data_path": "action_result.data.*.Name",
+          "data_type": "string",
+          "example_values": [
+            "All Systems"
+          ],
+          "contains": [
+            "sccm device group name"
+          ]
+        },
+        {
+          "data_path": "action_result.data.*.LastMemberChangeTime",
+          "data_type": "string",
+          "example_values": [
+            "20-09-2017 13:27:47"
+          ]
+        },
+        {
+          "data_path": "action_result.data.*.CollectionVariablesCount",
+          "data_type": "string",
+          "example_values": [
+            "0"
+          ]
+        },
+        {
+          "data_path": "action_result.data.*.LimitToCollectionID",
+          "data_type": "string",
+          "example_values": [
+            ""
+          ]
+        },
+        {
+          "data_path": "action_result.data.*.PSComputerName",
+          "data_type": "string",
+          "example_values": [
+            "SCCMSERVER.sccm.test"
+          ],
+          "contains": [
+            "host name"
+          ]
+        },
+        {
+          "data_path": "action_result.data.*.UseCluster",
+          "data_type": "string",
+          "example_values": [
+            "False"
+          ]
+        },
+        {
+          "data_path": "action_result.data.*.HasProvisionedMember",
+          "data_type": "string",
+          "example_values": [
+            "True"
+          ]
+        },
+        {
+          "data_path": "action_result.data.*.MonitoringFlags",
+          "data_type": "string",
+          "example_values": [
+            "0"
+          ]
+        },
+        {
+          "data_path": "action_result.data.*.ISVData",
+          "data_type": "string",
+          "example_values": [
+            ""
+          ]
+        },
+        {
+          "data_path": "action_result.data.*.OwnedByThisSite",
+          "data_type": "string",
+          "example_values": [
+            "True"
+          ]
+        },
+        {
+          "data_path": "action_result.data.*.LocalMemberCount",
+          "data_type": "string",
+          "example_values": [
+            "3"
+          ]
+        },
+        {
+          "data_path": "action_result.data.*.IsBuiltIn",
+          "data_type": "string",
+          "example_values": [
+            "True"
+          ]
+        },
+        {
+          "data_path": "action_result.data.*.LastChangeTime",
+          "data_type": "string",
+          "example_values": [
+            "14-09-2017 10:41:40"
+          ]
+        },
+        {
+          "data_path": "action_result.data.*.MemberCount",
+          "data_type": "string",
+          "example_values": [
+            "3"
+          ]
+        },
+        {
+          "data_path": "action_result.data.*.IncludeExcludeCollectionsCount",
+          "data_type": "string",
+          "example_values": [
+            "0"
+          ]
+        },
+        {
+          "data_path": "action_result.data.*.RefreshType",
+          "data_type": "string",
+          "example_values": [
+            "4"
+          ]
+        },
+        {
+          "data_path": "action_result.data.*.CollectionRules",
+          "data_type": "string",
+          "example_values": [
+            "Microsoft.ConfigurationManagement.ManagementProvider.IResultObject[]"
+          ]
+        },
+        {
+          "data_path": "action_result.data.*.ServiceWindowsCount",
+          "data_type": "string",
+          "example_values": [
+            "0"
+          ]
+        },
+        {
+          "data_path": "action_result.data.*.RefreshSchedule",
+          "data_type": "string",
+          "example_values": [
+            "Microsoft.ConfigurationManagement.ManagementProvider.IResultObject[]"
+          ]
+        },
+        {
+          "data_path": "action_result.data.*.Comment",
+          "data_type": "string",
+          "example_values": [
+            "All Systems"
+          ]
+        },
+        {
+          "data_path": "action_result.data.*.CollectionType",
+          "data_type": "string",
+          "example_values": [
+            "2"
+          ]
+        },
+        {
+          "data_path": "action_result.data.*.CollectionID",
+          "data_type": "string",
+          "example_values": [
+            "SMS00001"
+          ]
+        },
+        {
+          "data_path": "action_result.data.*.ISVString",
+          "data_type": "string",
+          "example_values": [
+            ""
+          ]
+        },
+        {
+          "data_path": "action_result.data.*.SmsProviderObjectPath",
+          "data_type": "string",
+          "example_values": [
+            "SMS_Collection.CollectionID=\"SMS00001\""
+          ]
+        },
+        {
+          "data_path": "action_result.data.*.ObjectPath",
+          "data_type": "string",
+          "example_values": [
+            ""
+          ]
+        },
+        {
+          "data_path": "action_result.data.*.CurrentStatus",
+          "data_type": "string",
+          "example_values": [
+            "1"
+          ]
+        },
+        {
+          "data_path": "action_result.data.*.ReplicateToSubSites",
+          "data_type": "string",
+          "example_values": [
+            "True"
+          ]
+        },
+        {
+          "data_path": "action_result.data.*.IsReferenceCollection",
+          "data_type": "string",
+          "example_values": [
+            "True"
+          ]
+        },
+        {
+          "data_path": "action_result.status",
+          "data_type": "string",
+          "example_values": [
+            "success"
+          ]
+        },
+        {
+          "data_path": "action_result.message",
+          "data_type": "string",
+          "example_values": [
+            "Total device groups: 5"
+          ]
+        },
+        {
+          "data_path": "action_result.summary.total_device_groups",
+          "data_type": "numeric",
+          "example_values": [
+            5
+          ]
+        },
+        {
+          "data_path": "summary.total_objects",
+          "data_type": "numeric",
+          "example_values": [
+            1
+          ]
+        },
+        {
+          "data_path": "summary.total_objects_successful",
+          "data_type": "numeric",
+          "example_values": [
+            1
+          ]
+        }
+      ],
+      "render": {
+        "type": "custom",
+        "title": "List Device Groups",
+        "view": "microsoftsccm_view.display_view"
+      },
+      "versions": "EQ(*)"
+    }
+  ]
 }
