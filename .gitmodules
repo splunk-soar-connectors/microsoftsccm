@@ -1,12 +1,12 @@
 [submodule "wheels/requests_ntlm"]
     path = wheels/requests_ntlm
-    url = ssh://git@prod-bb-1.phantom.local:7999/per/requests_ntlm.git
+    url = ssh://git@bitbucket.phantom.us:7999/per/requests_ntlm.git
     ignore = dirty
 [submodule "wheels/pywinrm"]
     path = wheels/pywinrm
-    url = ssh://git@prod-bb-1.phantom.local:7999/per/pywinrm.git
+    url = ssh://git@bitbucket.phantom.us:7999/per/pywinrm.git
     ignore = dirty
 [submodule "wheels/ntlm_auth"]
     path = wheels/ntlm_auth
-    url = ssh://git@prod-bb-1.phantom.local:7999/per/ntlm_auth.git
+    url = ssh://git@bitbucket.phantom.us:7999/per/ntlm_auth.git
     ignore = dirty
