@@ -1,14 +1,10 @@
 # --
 # File: microsoftsccm_connector.py
+# Copyright (c) 2017-2021 Splunk Inc.
 #
-# Copyright (c) Phantom Cyber Corporation, 2017-2018
+# SPLUNK CONFIDENTIAL - Use or disclosure of this material in whole or in part
+# without a valid written license from Splunk Inc. is PROHIBITED.
 #
-# This unpublished material is proprietary to Phantom Cyber.
-# All rights reserved. The methods and
-# techniques described herein are considered trade secrets
-# and/or confidential. Reproduction or distribution, in whole
-# or in part, is forbidden except by express written permission
-# of Phantom Cyber Corporation.
 #
 # --
 
@@ -55,7 +51,7 @@ class MicrosoftsccmConnector(BaseConnector):
 
         self.save_progress(MSSCCM_CONNECTING_ENDPOINT_MSG)
         # Execute power shell command
-        status, response = self._execute_ps_command(action_result, MSSCCM_PS_COMMAND.format(command="ls"))
+        status, _ = self._execute_ps_command(action_result, MSSCCM_PS_COMMAND.format(command="ls"))
 
         if phantom.is_fail(status):
             self.debug_print(action_result.get_message())
@@ -141,7 +137,7 @@ class MicrosoftsccmConnector(BaseConnector):
         device_group_name = param[MSSCCM_PARAM_DEVICE_GROUP_NAME]
 
         # Execute Command
-        status, response = self._execute_ps_command(action_result,
+        status, _ = self._execute_ps_command(action_result,
                                                     MSSCCM_DEPLOY_SOFTWARE_PATCHES.format(
                                                         name=software_patch_name,
                                                         device_group_name=device_group_name, q='\\"'))
@@ -254,7 +250,7 @@ class MicrosoftsccmConnector(BaseConnector):
         action = self.get_action_identifier()
         action_execution_status = phantom.APP_SUCCESS
 
-        if action in action_mapping.keys():
+        if action in list(action_mapping.keys()):
             action_function = action_mapping[action]
             action_execution_status = action_function(param)
 
@@ -264,8 +260,6 @@ class MicrosoftsccmConnector(BaseConnector):
 
         # Load the state in initialize, use it to store data
         # that needs to be accessed across actions
-        self._state = self.load_state()
-
         self._state = self.load_state()
 
         # Get the asset config
@@ -295,7 +289,7 @@ if __name__ == '__main__':
     pudb.set_trace()
 
     if (len(sys.argv) < 2):
-        print "No test json specified as input"
+        print("No test json specified as input")
         exit(0)
 
     with open(sys.argv[1]) as f:
@@ -306,6 +300,6 @@ if __name__ == '__main__':
         connector = MicrosoftsccmConnector()
         connector.print_progress_message = True
         ret_val = connector._handle_action(json.dumps(in_json), None)
-        print (json.dumps(json.loads(ret_val), indent=4))
+        print(json.dumps(json.loads(ret_val), indent=4))
 
     exit(0)

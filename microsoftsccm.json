@@ -8,13 +8,17 @@
     "logo_dark": "logo_microsoft_dark.svg",
     "product_name": "SCCM",
     "product_version_regex": ".*",
-    "publisher": "Phantom",
-    "license": "Copyright (c) Phantom Cyber Corporation, 2017-2018",
-    "app_version": "1.0.13",
+    "publisher": "Splunk",
+    "license": "Copyright (c) 2017-2021 Splunk Inc.",
+    "app_version": "2.0.0",
     "utctime_updated": "2018-12-20T03:05:03.000000Z",
     "package_name": "phantom_microsoftsccm",
-    "main_module": "microsoftsccm_connector.pyc",
-    "min_phantom_version": "3.0.251",
+    "main_module": "microsoftsccm_connector.py",
+    "min_phantom_version": "4.9.39220",
+    "latest_tested_versions": [
+        "Microsoft SCCM v5.00.8412.1000"
+    ],
+    "python_version": "3",
     "app_wizard_version": "1.0.0",
     "pip_dependencies": {
         "wheel": [
@@ -42,7 +46,6 @@
         "verify_server_cert": {
             "description": "Verify server certificate",
             "data_type": "boolean",
-            "required": false,
             "default": false,
             "order": 1
         },
@@ -64,7 +67,6 @@
             "action": "test connectivity",
             "identifier": "test_connectivity",
             "description": "Validate the asset configuration for connectivity using supplied configuration",
-            "verbose": "",
             "type": "test",
             "read_only": true,
             "parameters": {},
@@ -104,17 +106,23 @@
                 {
                     "data_path": "action_result.status",
                     "data_type": "string",
-                    "column_name": "status",
+                    "column_name": "Status",
                     "column_order": 0,
                     "example_values": [
-                        "success"
+                        "success",
+                        "failed"
                     ]
                 },
                 {
-                    "data_path": "action_result.message",
+                    "data_path": "action_result.parameter.device_group_name",
                     "data_type": "string",
+                    "contains": [
+                        "sccm device group name"
+                    ],
+                    "column_name": "Device Group Name",
+                    "column_order": 2,
                     "example_values": [
-                        "Patch deployed successfully"
+                        "Test"
                     ]
                 },
                 {
@@ -130,15 +138,18 @@
                     ]
                 },
                 {
-                    "data_path": "action_result.parameter.device_group_name",
+                    "data_path": "action_result.data",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.message",
                     "data_type": "string",
-                    "contains": [
-                        "sccm device group name"
-                    ],
-                    "column_name": "Device Group Name",
-                    "column_order": 2,
                     "example_values": [
-                        "Test"
+                        "Patch deployed successfully"
                     ]
                 },
                 {
@@ -171,38 +182,11 @@
             "parameters": {},
             "output": [
                 {
-                    "data_path": "action_result.data.*.IsDeployed",
+                    "data_path": "action_result.status",
                     "data_type": "string",
                     "example_values": [
-                        "False"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.DateRevised",
-                    "data_type": "string",
-                    "example_values": [
-                        "05-04-2012 03:21:35"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.BulletinID",
-                    "data_type": "string",
-                    "example_values": [
-                        ""
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.DatePosted",
-                    "data_type": "string",
-                    "example_values": [
-                        "05-04-2012 03:21:35"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.PercentCompliant",
-                    "data_type": "string",
-                    "example_values": [
-                        "0"
+                        "success",
+                        "failed"
                     ]
                 },
                 {
@@ -213,17 +197,25 @@
                     ]
                 },
                 {
-                    "data_path": "action_result.data.*.LocalizedDisplayName",
+                    "data_path": "action_result.data.*.BulletinID",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.data.*.DatePosted",
                     "data_type": "string",
                     "example_values": [
-                        "Office XP Service Pack 3 for Access 2002 Runtime"
-                    ],
-                    "contains": [
-                        "sccm software patch name"
+                        "05-04-2012 03:21:35"
                     ]
                 },
                 {
-                    "data_path": "action_result.data.*.IsSuperseded",
+                    "data_path": "action_result.data.*.DateRevised",
+                    "data_type": "string",
+                    "example_values": [
+                        "05-04-2012 03:21:35"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.IsDeployed",
                     "data_type": "string",
                     "example_values": [
                         "False"
@@ -237,17 +229,27 @@
                     ]
                 },
                 {
-                    "data_path": "action_result.status",
+                    "data_path": "action_result.data.*.IsSuperseded",
                     "data_type": "string",
                     "example_values": [
-                        "success"
+                        "False"
                     ]
                 },
                 {
-                    "data_path": "action_result.message",
+                    "data_path": "action_result.data.*.LocalizedDisplayName",
                     "data_type": "string",
                     "example_values": [
-                        "Total software patches: 1146"
+                        "Office XP Service Pack 3 for Access 2002 Runtime"
+                    ],
+                    "contains": [
+                        "sccm software patch name"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.PercentCompliant",
+                    "data_type": "string",
+                    "example_values": [
+                        "0"
                     ]
                 },
                 {
@@ -255,6 +257,13 @@
                     "data_type": "numeric",
                     "example_values": [
                         1146
+                    ]
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string",
+                    "example_values": [
+                        "Total software patches: 1146"
                     ]
                 },
                 {
@@ -283,204 +292,16 @@
             "action": "list device groups",
             "identifier": "list_device_groups",
             "description": "List all device groups",
-            "verbose": "",
             "type": "investigate",
             "read_only": true,
             "parameters": {},
             "output": [
                 {
-                    "data_path": "action_result.data.*.MemberClassName",
+                    "data_path": "action_result.status",
                     "data_type": "string",
                     "example_values": [
-                        "SMS_CM_RES_COLL_SMS00001"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.LastRefreshTime",
-                    "data_type": "string",
-                    "example_values": [
-                        "03-10-2017 22:30:55"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.ISVDataSize",
-                    "data_type": "string",
-                    "example_values": [
-                        "0"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.PowerConfigsCount",
-                    "data_type": "string",
-                    "example_values": [
-                        "0"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.LimitToCollectionName",
-                    "data_type": "string",
-                    "example_values": [
-                        ""
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.PSShowComputerName",
-                    "data_type": "string",
-                    "example_values": [
-                        "False"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.Name",
-                    "data_type": "string",
-                    "example_values": [
-                        "All Systems"
-                    ],
-                    "contains": [
-                        "sccm device group name"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.LastMemberChangeTime",
-                    "data_type": "string",
-                    "example_values": [
-                        "20-09-2017 13:27:47"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.CollectionVariablesCount",
-                    "data_type": "string",
-                    "example_values": [
-                        "0"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.LimitToCollectionID",
-                    "data_type": "string",
-                    "example_values": [
-                        ""
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.PSComputerName",
-                    "data_type": "string",
-                    "example_values": [
-                        "SCCMSERVER.sccm.test"
-                    ],
-                    "contains": [
-                        "host name"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.UseCluster",
-                    "data_type": "string",
-                    "example_values": [
-                        "False"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.HasProvisionedMember",
-                    "data_type": "string",
-                    "example_values": [
-                        "True"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.MonitoringFlags",
-                    "data_type": "string",
-                    "example_values": [
-                        "0"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.ISVData",
-                    "data_type": "string",
-                    "example_values": [
-                        ""
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.OwnedByThisSite",
-                    "data_type": "string",
-                    "example_values": [
-                        "True"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.LocalMemberCount",
-                    "data_type": "string",
-                    "example_values": [
-                        "3"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.IsBuiltIn",
-                    "data_type": "string",
-                    "example_values": [
-                        "True"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.LastChangeTime",
-                    "data_type": "string",
-                    "example_values": [
-                        "14-09-2017 10:41:40"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.MemberCount",
-                    "data_type": "string",
-                    "example_values": [
-                        "3"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.IncludeExcludeCollectionsCount",
-                    "data_type": "string",
-                    "example_values": [
-                        "0"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.RefreshType",
-                    "data_type": "string",
-                    "example_values": [
-                        "4"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.CollectionRules",
-                    "data_type": "string",
-                    "example_values": [
-                        "Microsoft.ConfigurationManagement.ManagementProvider.IResultObject[]"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.ServiceWindowsCount",
-                    "data_type": "string",
-                    "example_values": [
-                        "0"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.RefreshSchedule",
-                    "data_type": "string",
-                    "example_values": [
-                        "Microsoft.ConfigurationManagement.ManagementProvider.IResultObject[]"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.Comment",
-                    "data_type": "string",
-                    "example_values": [
-                        "All Systems"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.CollectionType",
-                    "data_type": "string",
-                    "example_values": [
-                        "2"
+                        "success",
+                        "failed"
                     ]
                 },
                 {
@@ -491,24 +312,31 @@
                     ]
                 },
                 {
-                    "data_path": "action_result.data.*.ISVString",
+                    "data_path": "action_result.data.*.CollectionRules",
                     "data_type": "string",
                     "example_values": [
-                        ""
+                        "Microsoft.ConfigurationManagement.ManagementProvider.IResultObject[]"
                     ]
                 },
                 {
-                    "data_path": "action_result.data.*.SmsProviderObjectPath",
+                    "data_path": "action_result.data.*.CollectionType",
                     "data_type": "string",
                     "example_values": [
-                        "SMS_Collection.CollectionID=\"SMS00001\""
+                        "2"
                     ]
                 },
                 {
-                    "data_path": "action_result.data.*.ObjectPath",
+                    "data_path": "action_result.data.*.CollectionVariablesCount",
                     "data_type": "string",
                     "example_values": [
-                        ""
+                        "0"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.Comment",
+                    "data_type": "string",
+                    "example_values": [
+                        "All Systems"
                     ]
                 },
                 {
@@ -519,7 +347,36 @@
                     ]
                 },
                 {
-                    "data_path": "action_result.data.*.ReplicateToSubSites",
+                    "data_path": "action_result.data.*.HasProvisionedMember",
+                    "data_type": "string",
+                    "example_values": [
+                        "True"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ISVData",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.data.*.ISVDataSize",
+                    "data_type": "string",
+                    "example_values": [
+                        "0"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ISVString",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.data.*.IncludeExcludeCollectionsCount",
+                    "data_type": "string",
+                    "example_values": [
+                        "0"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.IsBuiltIn",
                     "data_type": "string",
                     "example_values": [
                         "True"
@@ -533,17 +390,147 @@
                     ]
                 },
                 {
-                    "data_path": "action_result.status",
+                    "data_path": "action_result.data.*.LastChangeTime",
                     "data_type": "string",
                     "example_values": [
-                        "success"
+                        "14-09-2017 10:41:40"
                     ]
                 },
                 {
-                    "data_path": "action_result.message",
+                    "data_path": "action_result.data.*.LastMemberChangeTime",
                     "data_type": "string",
                     "example_values": [
-                        "Total device groups: 5"
+                        "20-09-2017 13:27:47"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.LastRefreshTime",
+                    "data_type": "string",
+                    "example_values": [
+                        "03-10-2017 22:30:55"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.LimitToCollectionID",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.data.*.LimitToCollectionName",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.data.*.LocalMemberCount",
+                    "data_type": "string",
+                    "example_values": [
+                        "3"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.MemberClassName",
+                    "data_type": "string",
+                    "example_values": [
+                        "SMS_CM_RES_COLL_SMS00001"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.MemberCount",
+                    "data_type": "string",
+                    "example_values": [
+                        "3"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.MonitoringFlags",
+                    "data_type": "string",
+                    "example_values": [
+                        "0"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.Name",
+                    "data_type": "string",
+                    "example_values": [
+                        "All Systems"
+                    ],
+                    "contains": [
+                        "sccm device group name"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ObjectPath",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.data.*.OwnedByThisSite",
+                    "data_type": "string",
+                    "example_values": [
+                        "True"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.PSComputerName",
+                    "data_type": "string",
+                    "example_values": [
+                        "SCCMSERVER.sccm.test"
+                    ],
+                    "contains": [
+                        "host name"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.PSShowComputerName",
+                    "data_type": "string",
+                    "example_values": [
+                        "False"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.PowerConfigsCount",
+                    "data_type": "string",
+                    "example_values": [
+                        "0"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.RefreshSchedule",
+                    "data_type": "string",
+                    "example_values": [
+                        "Microsoft.ConfigurationManagement.ManagementProvider.IResultObject[]"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.RefreshType",
+                    "data_type": "string",
+                    "example_values": [
+                        "4"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ReplicateToSubSites",
+                    "data_type": "string",
+                    "example_values": [
+                        "True"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ServiceWindowsCount",
+                    "data_type": "string",
+                    "example_values": [
+                        "0"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.SmsProviderObjectPath",
+                    "data_type": "string",
+                    "example_values": [
+                        "SMS_Collection.CollectionID=\"SMS00001\""
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.UseCluster",
+                    "data_type": "string",
+                    "example_values": [
+                        "False"
                     ]
                 },
                 {
@@ -551,6 +538,13 @@
                     "data_type": "numeric",
                     "example_values": [
                         5
+                    ]
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string",
+                    "example_values": [
+                        "Total device groups: 5"
                     ]
                 },
                 {
