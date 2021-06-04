@@ -1,0 +1,3 @@
+pywinrm==0.2.2
+ntlm_auth==1.0.5
+requests_ntlm==1.0.0

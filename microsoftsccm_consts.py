@@ -1,14 +1,10 @@
 # --
 # File: microsoftsccm_consts.py
+# Copyright (c) 2017-2021 Splunk Inc.
 #
-# Copyright (c) Phantom Cyber Corporation, 2017-2018
+# SPLUNK CONFIDENTIAL - Use or disclosure of this material in whole or in part
+# without a valid written license from Splunk Inc. is PROHIBITED.
 #
-# This unpublished material is proprietary to Phantom Cyber.
-# All rights reserved. The methods and
-# techniques described herein are considered trade secrets
-# and/or confidential. Reproduction or distribution, in whole
-# or in part, is forbidden except by express written permission
-# of Phantom Cyber Corporation.
 #
 # --
 MSSCCM_CONFIG_SERVER_URL = "server_url"
@@ -30,14 +26,14 @@ MSSCCM_PARAM_PATCH_NAME = "software_patch_name"
 MSSCCM_PARAM_DEVICE_GROUP_NAME = "device_group_name"
 MSSCCM_GET_SOFTWARE_PATCHES = 'powershell -command "Import-Module ' \
                               '($Env:SMS_ADMIN_UI_PATH.Substring(0,$Env:SMS_ADMIN_UI_PATH.Length-5)' \
-                              ' + {q}\ConfigurationManager.psd1{q});$PSD = Get-PSDrive -PSProvider ' \
+                              ' + {q}\\ConfigurationManager.psd1{q});$PSD = Get-PSDrive -PSProvider ' \
                               'CMSite;CD {q}$($PSD):{q};Get-CMSoftwareUpdate -Fast | Select-Object -Property ' \
                               'ArticleID, LocalizedDisplayName, BulletinID, PercentCompliant, IsDeployed, DatePosted,' \
                               ' DateRevised, IsSuperseded, IsExpired | ConvertTo-Csv | ConvertFrom-Csv | ' \
                               'ConvertTo-Json;"'
 MSSCCM_DEPLOY_SOFTWARE_PATCHES = 'powershell -command " ' \
                                   'Import-Module ($Env:SMS_ADMIN_UI_PATH.Substring(0,$Env:SMS_ADMIN_UI_PATH.Length-5)' \
-                                  ' + {q}\ConfigurationManager.psd1{q});$PSD = ' \
+                                  ' + {q}\\ConfigurationManager.psd1{q});$PSD = ' \
                                   'Get-PSDrive -PSProvider CMSite;CD {q}$($PSD):{q}; Start-CMSoftwareUpdateDeployment' \
                                   ' -SoftwareUpdateName {q}{name}{q} -CollectionName {q}{device_group_name}{q} ' \
                                   '-DeploymentType Required -VerbosityLevel AllMessages -TimeBasedOn LocalTime ' \
@@ -47,7 +43,7 @@ MSSCCM_DEPLOY_SOFTWARE_PATCHES = 'powershell -command " ' \
                                   ' -AcceptEula ;"'
 MSSCCM_GET_DEVICE_GROUPS = 'powershell -command "Import-Module ' \
                                '($Env:SMS_ADMIN_UI_PATH.Substring(0,$Env:SMS_ADMIN_UI_PATH.Length-5) + ' \
-                               '{q}\ConfigurationManager.psd1{q}); ' \
+                               '{q}\\ConfigurationManager.psd1{q}); ' \
                                '$PSD = Get-PSDrive -PSProvider' \
                                ' CMSite;CD {q}$($PSD):{q};Get-CMDeviceCollection | ConvertTo-Csv | ConvertFrom-Csv | ' \
                                'ConvertTo-Json;"'
