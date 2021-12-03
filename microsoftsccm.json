@@ -15,6 +15,7 @@
     "package_name": "phantom_microsoftsccm",
     "main_module": "microsoftsccm_connector.py",
     "min_phantom_version": "4.9.39220",
+    "fips_compliant": true,
     "latest_tested_versions": [
         "Microsoft SCCM v5.00.8412.1000"
     ],
