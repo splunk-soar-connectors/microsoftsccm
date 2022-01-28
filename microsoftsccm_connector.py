@@ -19,7 +19,6 @@ import json
 
 # Phantom App imports
 import phantom.app as phantom
-
 from phantom.action_result import ActionResult
 from phantom.base_connector import BaseConnector
 from requests import exceptions
