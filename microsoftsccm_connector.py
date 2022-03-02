@@ -90,7 +90,7 @@ class MicrosoftsccmConnector(BaseConnector):
 
         resp_output = None
 
-        if fips_enabled:
+        if self._get_fips_enabled():
             protocol = Protocol(endpoint=MSSCCM_SERVER_URL.format(url=self._server_url), transport='basic',
                     username=self._username, password=self._password,
                     server_cert_validation='ignore')
