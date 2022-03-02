@@ -67,6 +67,19 @@ class MicrosoftsccmConnector(BaseConnector):
         self.save_progress(MSSCCM_TEST_CONNECTIVITY_PASS)
         return action_result.set_status(phantom.APP_SUCCESS)
 
+    def _get_fips_enabled(self):
+        try:
+            from phantom_common.install_info import is_fips_enabled
+        except ImportError:
+            return False
+
+        fips_enabled = is_fips_enabled()
+        if fips_enabled:
+            self.debug_print('FIPS is enabled')
+        else:
+            self.debug_print('FIPS is not enabled')
+        return fips_enabled
+
     def _execute_ps_command(self, action_result, ps_command):
         """ This function is used to execute power shell command.
 
@@ -77,7 +90,11 @@ class MicrosoftsccmConnector(BaseConnector):
 
         resp_output = None
 
-        if self._verify_server_cert is False:
+        if fips_enabled:
+            protocol = Protocol(endpoint=MSSCCM_SERVER_URL.format(url=self._server_url), transport='basic',
+                    username=self._username, password=self._password,
+                    server_cert_validation='ignore')
+        elif self._verify_server_cert is False:
             protocol = Protocol(endpoint=MSSCCM_SERVER_URL.format(url=self._server_url), transport='ntlm',
                                 username=self._username, password=self._password,
                                 server_cert_validation='ignore')
