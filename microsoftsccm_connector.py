@@ -94,7 +94,7 @@ class MicrosoftsccmConnector(BaseConnector):
             protocol = Protocol(endpoint=MSSCCM_SERVER_URL.format(url=self._server_url), transport='basic',
                     username=self._username, password=self._password,
                     server_cert_validation='ignore')
-        elif self._verify_server_cert is False:
+        elif not self._verify_server_cert:
             protocol = Protocol(endpoint=MSSCCM_SERVER_URL.format(url=self._server_url), transport='ntlm',
                                 username=self._username, password=self._password,
                                 server_cert_validation='ignore')
