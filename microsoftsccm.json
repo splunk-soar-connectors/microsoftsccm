@@ -10,12 +10,12 @@
     "product_version_regex": ".*",
     "publisher": "Splunk",
     "license": "Copyright (c) 2017-2022 Splunk Inc.",
-    "app_version": "2.1.2",
+    "app_version": "2.1.3",
     "utctime_updated": "2022-02-03T13:09:24.000000Z",
     "package_name": "phantom_microsoftsccm",
     "main_module": "microsoftsccm_connector.py",
     "min_phantom_version": "5.1.0",
-    "fips_compliant": false,
+    "fips_compliant": true,
     "latest_tested_versions": [
         "Microsoft SCCM v5.00.8412.1000"
     ],
