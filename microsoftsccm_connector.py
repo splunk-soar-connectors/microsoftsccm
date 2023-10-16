@@ -105,20 +105,20 @@ class MicrosoftsccmConnector(BaseConnector):
         try:
             shell_id = protocol.open_shell()
         except InvalidCredentialsError as credentials_err:
-            self.debug_print(MSSCCM_INVALID_CREDENTIAL_ERR, credentials_err)
-            return action_result.set_status(phantom.APP_ERROR, MSSCCM_INVALID_CREDENTIAL_ERR,
+            self.debug_print(MSSCCM_INVALID_CREDENTIAL_ERROR, credentials_err)
+            return action_result.set_status(phantom.APP_ERROR, MSSCCM_INVALID_CREDENTIAL_ERROR,
                                             credentials_err), resp_output
         except exceptions.SSLError as ssl_err:
-            self.debug_print(MSSCCM_ERR_BAD_HANDSHAKE, ssl_err)
-            return action_result.set_status(phantom.APP_ERROR, MSSCCM_ERR_BAD_HANDSHAKE,
+            self.debug_print(MSSCCM_ERROR_BAD_HANDSHAKE, ssl_err)
+            return action_result.set_status(phantom.APP_ERROR, MSSCCM_ERROR_BAD_HANDSHAKE,
                                             ssl_err), resp_output
         except exceptions.ConnectionError as conn_err:
-            self.debug_print(MSSCCM_ERR_SERVER_CONNECTION, conn_err)
-            return action_result.set_status(phantom.APP_ERROR, MSSCCM_ERR_SERVER_CONNECTION,
+            self.debug_print(MSSCCM_ERROR_SERVER_CONNECTION, conn_err)
+            return action_result.set_status(phantom.APP_ERROR, MSSCCM_ERROR_SERVER_CONNECTION,
                                             conn_err), resp_output
         except WinRMTransportError as transport_err:
-            self.debug_print(MSSCCM_TRANSPORT_ERR, transport_err)
-            return action_result.set_status(phantom.APP_ERROR, MSSCCM_TRANSPORT_ERR,
+            self.debug_print(MSSCCM_TRANSPORT_ERROR, transport_err)
+            return action_result.set_status(phantom.APP_ERROR, MSSCCM_TRANSPORT_ERROR,
                                             transport_err), resp_output
         except Exception as e:
             self.debug_print(MSSCCM_EXCEPTION_OCCURRED, e)
