@@ -1,6 +1,6 @@
 # File: microsoftsccm_connector.py
 #
-# Copyright (c) 2017-2022 Splunk Inc.
+# Copyright (c) 2017-2023 Splunk Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -89,19 +89,18 @@ class MicrosoftsccmConnector(BaseConnector):
         """
 
         resp_output = None
+        server_cert_validation = 'ignore'
+        transport = 'ntlm'
 
         if self._get_fips_enabled():
-            protocol = Protocol(endpoint=MSSCCM_SERVER_URL.format(url=self._server_url), transport='basic',
-                    username=self._username, password=self._password,
-                    server_cert_validation='ignore')
-        elif not self._verify_server_cert:
-            protocol = Protocol(endpoint=MSSCCM_SERVER_URL.format(url=self._server_url), transport='ntlm',
-                                username=self._username, password=self._password,
-                                server_cert_validation='ignore')
-        else:
-            protocol = Protocol(endpoint=MSSCCM_SERVER_URL.format(url=self._server_url), transport='ntlm',
-                                username=self._username, password=self._password,
-                                server_cert_validation='validate')
+            transport = 'basic'
+
+        if self._verify_server_cert:
+            server_cert_validation = 'validate'
+
+        protocol = Protocol(endpoint=MSSCCM_SERVER_URL.format(url=self._server_url), transport=transport,
+                            username=self._username, password=self._password,
+                            server_cert_validation=server_cert_validation)
 
         try:
             shell_id = protocol.open_shell()
