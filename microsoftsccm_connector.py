@@ -1,6 +1,6 @@
 # File: microsoftsccm_connector.py
 #
-# Copyright (c) 2017-2022 Splunk Inc.
+# Copyright (c) 2017-2023 Splunk Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -89,37 +89,36 @@ class MicrosoftsccmConnector(BaseConnector):
         """
 
         resp_output = None
+        server_cert_validation = 'ignore'
+        transport = 'ntlm'
 
         if self._get_fips_enabled():
-            protocol = Protocol(endpoint=MSSCCM_SERVER_URL.format(url=self._server_url), transport='basic',
-                    username=self._username, password=self._password,
-                    server_cert_validation='ignore')
-        elif not self._verify_server_cert:
-            protocol = Protocol(endpoint=MSSCCM_SERVER_URL.format(url=self._server_url), transport='ntlm',
-                                username=self._username, password=self._password,
-                                server_cert_validation='ignore')
-        else:
-            protocol = Protocol(endpoint=MSSCCM_SERVER_URL.format(url=self._server_url), transport='ntlm',
-                                username=self._username, password=self._password,
-                                server_cert_validation='validate')
+            transport = 'basic'
+
+        if self._verify_server_cert:
+            server_cert_validation = 'validate'
+
+        protocol = Protocol(endpoint=MSSCCM_SERVER_URL.format(url=self._server_url), transport=transport,
+                            username=self._username, password=self._password,
+                            server_cert_validation=server_cert_validation)
 
         try:
             shell_id = protocol.open_shell()
         except InvalidCredentialsError as credentials_err:
-            self.debug_print(MSSCCM_INVALID_CREDENTIAL_ERR, credentials_err)
-            return action_result.set_status(phantom.APP_ERROR, MSSCCM_INVALID_CREDENTIAL_ERR,
+            self.debug_print(MSSCCM_INVALID_CREDENTIAL_ERROR, credentials_err)
+            return action_result.set_status(phantom.APP_ERROR, MSSCCM_INVALID_CREDENTIAL_ERROR,
                                             credentials_err), resp_output
         except exceptions.SSLError as ssl_err:
-            self.debug_print(MSSCCM_ERR_BAD_HANDSHAKE, ssl_err)
-            return action_result.set_status(phantom.APP_ERROR, MSSCCM_ERR_BAD_HANDSHAKE,
+            self.debug_print(MSSCCM_ERROR_BAD_HANDSHAKE, ssl_err)
+            return action_result.set_status(phantom.APP_ERROR, MSSCCM_ERROR_BAD_HANDSHAKE,
                                             ssl_err), resp_output
         except exceptions.ConnectionError as conn_err:
-            self.debug_print(MSSCCM_ERR_SERVER_CONNECTION, conn_err)
-            return action_result.set_status(phantom.APP_ERROR, MSSCCM_ERR_SERVER_CONNECTION,
+            self.debug_print(MSSCCM_ERROR_SERVER_CONNECTION, conn_err)
+            return action_result.set_status(phantom.APP_ERROR, MSSCCM_ERROR_SERVER_CONNECTION,
                                             conn_err), resp_output
         except WinRMTransportError as transport_err:
-            self.debug_print(MSSCCM_TRANSPORT_ERR, transport_err)
-            return action_result.set_status(phantom.APP_ERROR, MSSCCM_TRANSPORT_ERR,
+            self.debug_print(MSSCCM_TRANSPORT_ERROR, transport_err)
+            return action_result.set_status(phantom.APP_ERROR, MSSCCM_TRANSPORT_ERROR,
                                             transport_err), resp_output
         except Exception as e:
             self.debug_print(MSSCCM_EXCEPTION_OCCURRED, e)

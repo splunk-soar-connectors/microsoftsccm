@@ -1,6 +1,6 @@
 # File: microsoftsccm_consts.py
 #
-# Copyright (c) 2017-2022 Splunk Inc.
+# Copyright (c) 2017-2023 Splunk Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,10 +18,10 @@ MSSCCM_CONFIG_PASSWORD = "password"  # pragma: allowlist secret
 MSSCCM_CONFIG_VERIFY_SSL = "verify_server_cert"
 MSSCCM_SERVER_URL = "{url}/wsman"
 MSSCCM_CONNECTING_ENDPOINT_MSG = "Connecting to endpoint"
-MSSCCM_ERR_SERVER_CONNECTION = "Connection failed"
-MSSCCM_ERR_BAD_HANDSHAKE = "Bad Handshake"
-MSSCCM_INVALID_CREDENTIAL_ERR = "Invalid Credentials"
-MSSCCM_TRANSPORT_ERR = "Connection error: Bad configuration in SCCM"
+MSSCCM_ERROR_SERVER_CONNECTION = "Connection failed"
+MSSCCM_ERROR_BAD_HANDSHAKE = "Bad Handshake"
+MSSCCM_INVALID_CREDENTIAL_ERROR = "Invalid Credentials"
+MSSCCM_TRANSPORT_ERROR = "Connection error: Bad configuration in SCCM"
 MSSCCM_EXCEPTION_OCCURRED = "Exception occurred"
 MSSCCM_TEST_CONNECTIVITY_FAIL = "Test Connectivity Failed."
 MSSCCM_TEST_CONNECTIVITY_PASS = "Test Connectivity Passed"
