@@ -15,7 +15,11 @@
 MSSCCM_CONFIG_SERVER_URL = "server_url"
 MSSCCM_CONFIG_USERNAME = "username"
 MSSCCM_CONFIG_PASSWORD = "password"  # pragma: allowlist secret
+MSSCCM_CONFIG_AUTH_METHOD = "auth_method"
 MSSCCM_CONFIG_VERIFY_SSL = "verify_server_cert"
+
+MSSCCM_DEFAULT_AUTH_METHOD = "default"
+
 MSSCCM_SERVER_URL = "{url}/wsman"
 MSSCCM_CONNECTING_ENDPOINT_MSG = "Connecting to endpoint"
 MSSCCM_ERROR_SERVER_CONNECTION = "Connection failed"

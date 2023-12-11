@@ -41,6 +41,7 @@ class MicrosoftsccmConnector(BaseConnector):
         # Configuration variables
         self._server_url = None
         self._username = None
+        self._auth_type = MSSCCM_DEFAULT_AUTH_METHOD
         self._password = None
         self._verify_server_cert = False
 
@@ -91,10 +92,12 @@ class MicrosoftsccmConnector(BaseConnector):
         resp_output = None
         server_cert_validation = 'ignore'
         transport = 'ntlm'
-
-        if self._get_fips_enabled():
+        if self._auth_type != MSSCCM_DEFAULT_AUTH_METHOD:
+            transport = self._auth_type
+        elif self._get_fips_enabled():
             transport = 'basic'
 
+        self.debug_print(f"DEV using transport:{transport}")
         if self._verify_server_cert:
             server_cert_validation = 'validate'
 
@@ -290,6 +293,7 @@ class MicrosoftsccmConnector(BaseConnector):
         self._server_url = config[MSSCCM_CONFIG_SERVER_URL]
         self._username = config[MSSCCM_CONFIG_USERNAME]
         self._password = config[MSSCCM_CONFIG_PASSWORD]
+        self._auth_type = config[MSSCCM_CONFIG_AUTH_METHOD]
 
         # Optional config parameter
         self._verify_server_cert = config.get(MSSCCM_CONFIG_VERIFY_SSL, False)

@@ -81,6 +81,19 @@
             "data_type": "password",
             "required": true,
             "order": 3
+        },
+        "auth_method": {
+            "description": "Authentication Method",
+            "data_type": "string",
+            "default":"base",
+            "order": 4,
+            "required": false,
+            "value_list": [
+                "default",
+                "kerberos",
+                "credssp",
+                "ntlm"
+                ]
         }
     },
     "actions": [
