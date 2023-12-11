@@ -44,6 +44,7 @@ VARIABLE | REQUIRED | TYPE | DESCRIPTION
 **verify_server_cert** |  optional  | boolean | Verify server certificate
 **username** |  required  | string | Username
 **password** |  required  | password | Password
+**auth_method** |  optional  | string | Authentication Method
 
 ### Supported Actions  
 [test connectivity](#action-test-connectivity) - Validate the asset configuration for connectivity using supplied configuration  
