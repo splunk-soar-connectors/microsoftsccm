@@ -81,6 +81,23 @@ class MicrosoftsccmConnector(BaseConnector):
             self.debug_print('FIPS is not enabled')
         return fips_enabled
 
+    def _get_protocol(self):
+        server_cert_validation = 'ignore'
+        transport = 'ntlm'
+
+        if self._auth_type != MSSCCM_DEFAULT_AUTH_METHOD:
+            transport = self._auth_type
+        elif self._get_fips_enabled():
+            transport = 'basic'
+
+        if self._verify_server_cert:
+            server_cert_validation = 'validate'
+
+        return Protocol(endpoint=MSSCCM_SERVER_URL.format(url=self._server_url), transport=transport,
+                            username=self._username, password=self._password,
+                            server_cert_validation=server_cert_validation)
+
+
     def _execute_ps_command(self, action_result, ps_command):
         """ This function is used to execute power shell command.
 
@@ -89,21 +106,8 @@ class MicrosoftsccmConnector(BaseConnector):
         :return: output of executed power shell command
         """
 
+        protocol = self._get_protocol()
         resp_output = None
-        server_cert_validation = 'ignore'
-        transport = 'ntlm'
-        if self._auth_type != MSSCCM_DEFAULT_AUTH_METHOD:
-            transport = self._auth_type
-        elif self._get_fips_enabled():
-            transport = 'basic'
-
-        self.debug_print(f"DEV using transport:{transport}")
-        if self._verify_server_cert:
-            server_cert_validation = 'validate'
-
-        protocol = Protocol(endpoint=MSSCCM_SERVER_URL.format(url=self._server_url), transport=transport,
-                            username=self._username, password=self._password,
-                            server_cert_validation=server_cert_validation)
 
         try:
             shell_id = protocol.open_shell()
