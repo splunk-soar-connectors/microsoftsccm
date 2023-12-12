@@ -6,7 +6,7 @@ Connector Version: 2.2.0
 Product Vendor: Microsoft  
 Product Name: SCCM  
 Product Version Supported (regex): ".\*"  
-Minimum Product Version: 6.1.0  
+Minimum Product Version: 6.0.0  
 
 This app integrates with Microsoft System Center Configuration Manager (SCCM) to execute investigative and generic actions
 
