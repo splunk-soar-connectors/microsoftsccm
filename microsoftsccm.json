@@ -54,11 +54,29 @@
             "required": false,
             "value_list": [
                 "default",
-                "ssl",
+                "certificate",
                 "credssp",
                 "ntlm",
                 "basic"
             ]
+        },
+        "cert_pem_path": {
+            "description": "Path to SSL certificate PEM file",
+            "data_type": "string",
+            "required": false,
+            "order": 5
+        },
+        "cert_key_pem_path": {
+            "description": "Path to SSL key file",
+            "data_type": "string",
+            "required": false,
+            "order": 6
+        },
+        "ca_trust_path": {
+            "description": "Path to trusted CRT file",
+            "data_type": "string",
+            "required": false,
+            "order": 7
         }
     },
     "actions": [
