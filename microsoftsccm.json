@@ -10,11 +10,11 @@
     "product_version_regex": ".*",
     "publisher": "Splunk",
     "license": "Copyright (c) 2017-2023 Splunk Inc.",
-    "app_version": "2.2.0",
+    "app_version": "2.2.15",
     "utctime_updated": "2022-02-03T13:09:24.000000Z",
     "package_name": "phantom_microsoftsccm",
     "main_module": "microsoftsccm_connector.py",
-    "min_phantom_version": "6.1.1",
+    "min_phantom_version": "6.0.1",
     "fips_compliant": true,
     "latest_tested_versions": [
         "Microsoft SCCM v5.00.8412.1000"
@@ -54,6 +54,7 @@
             "required": false,
             "value_list": [
                 "default",
+                "kerberos",
                 "certificate",
                 "credssp",
                 "ntlm",
@@ -622,12 +623,16 @@
                 "input_file": "wheels/shared/pycparser-2.21-py2.py3-none-any.whl"
             },
             {
+                "module": "pykerberos",
+                "input_file": "wheels/py36/pykerberos-1.2.4-cp36-cp36m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
+            },
+            {
                 "module": "pyspnego",
                 "input_file": "wheels/shared/pyspnego-0.5.4-py2.py3-none-any.whl"
             },
             {
                 "module": "pywinrm",
-                "input_file": "wheels/shared/pywinrm-0.4.2-py2.py3-none-any.whl"
+                "input_file": "wheels/shared/pywinrm-0.4.3-py2.py3-none-any.whl"
             },
             {
                 "module": "requests",
@@ -686,12 +691,16 @@
                 "input_file": "wheels/shared/pycparser-2.21-py2.py3-none-any.whl"
             },
             {
+                "module": "pykerberos",
+                "input_file": "wheels/py39/pykerberos-1.2.4-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
+            },
+            {
                 "module": "pyspnego",
                 "input_file": "wheels/py3/pyspnego-0.10.2-py3-none-any.whl"
             },
             {
                 "module": "pywinrm",
-                "input_file": "wheels/shared/pywinrm-0.4.2-py2.py3-none-any.whl"
+                "input_file": "wheels/shared/pywinrm-0.4.3-py2.py3-none-any.whl"
             },
             {
                 "module": "requests",

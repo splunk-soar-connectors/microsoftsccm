@@ -38,7 +38,7 @@ In asset configuration more authentication types can be selected:
 
 ### Certificate Authentication
 
-To authenticate using SSL certificates, select 'certificate' authentication method and pass following configuration parameters.
+To authenticate using SSL certificates, select 'certificate' authentication in asset configuration method and pass following configuration parameters.
 
 * cert_pem_path - A path to signed certificate file that is trusted by the Windows instance, in PEM format
 

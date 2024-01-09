@@ -1,4 +1,4 @@
 ntlm_auth==1.5.0
-pywinrm==0.4.2
+pywinrm[kerberos]
 requests_credssp==2.0.0
 requests_ntlm==1.1.0
