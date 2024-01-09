@@ -2,11 +2,11 @@
 # Microsoft SCCM
 
 Publisher: Splunk  
-Connector Version: 2.2.0  
+Connector Version: 2.2.15  
 Product Vendor: Microsoft  
 Product Name: SCCM  
 Product Version Supported (regex): ".\*"  
-Minimum Product Version: 6.1.1  
+Minimum Product Version: 6.0.1  
 
 This app integrates with Microsoft System Center Configuration Manager (SCCM) to execute investigative and generic actions
 
@@ -50,7 +50,7 @@ In asset configuration more authentication types can be selected:
 
 ### Certificate Authentication
 
-To authenticate using SSL certificates, select 'certificate' authentication method and pass following configuration parameters.
+To authenticate using SSL certificates, select 'certificate' authentication in asset configuration method and pass following configuration parameters.
 
 * cert_pem_path - A path to signed certificate file that is trusted by the Windows instance, in PEM format
 
