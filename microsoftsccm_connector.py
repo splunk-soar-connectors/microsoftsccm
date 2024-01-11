@@ -41,9 +41,12 @@ class MicrosoftsccmConnector(BaseConnector):
         # Configuration variables
         self._server_url = None
         self._username = None
-        self._auth_type = MSSCCM_DEFAULT_AUTH_METHOD
-        self._password = None
         self._verify_server_cert = False
+        self._auth_type = MSSCCM_DEFAULT_AUTH_METHOD
+        self._cert_pem_path = None
+        self._cert_key_pem_path = None
+        self._cert_ca_trust_path = None
+        self._password = None
 
     def _handle_test_connectivity(self, param):
         """ This function tests the connectivity of an asset with given credentials.
