@@ -6,12 +6,12 @@ Connector Version: 2.2.1
 Product Vendor: Microsoft  
 Product Name: SCCM  
 Product Version Supported (regex): ".\*"  
-Minimum Product Version: 6.0.1  
+Minimum Product Version: 6.1.0  
 
 This app integrates with Microsoft System Center Configuration Manager (SCCM) to execute investigative and generic actions
 
 [comment]: # "    File: README.md"
-[comment]: # "  Copyright (c) 2017-2024 Splunk Inc."
+[comment]: # "  Copyright (c) 2017-2023 Splunk Inc."
 [comment]: # ""
 [comment]: # "Licensed under the Apache License, Version 2.0 (the 'License');"
 [comment]: # "you may not use this file except in compliance with the License."
@@ -31,35 +31,8 @@ be changed to true on SCCM server.
 By default WinRM HTTP uses port 80. On Windows 7 and higher the default port is 5985.  
 By default WinRM HTTPS uses port 443. On Windows 7 and higher the default port is 5986.
 
-The use of the HTTP_PROXY and HTTPS_PROXY environment variables is
+This app uses NTLM authorization. The use of the HTTP_PROXY and HTTPS_PROXY environment variables is
 currently unsupported.
-
-### Authentication
-
-This app uses different default authorisation method, when FIPS is enabled:
-| FIPS     | Default auth |
-|----------|--------------|
-| Enabled  | Basic HTTP   |
-| Disabled | NTLM         |
-
-In asset configuration more authentication types can be selected:
-* certificate
-* credssp
-* ntlm
-* basic
-* kerberos (Currently a Kerberos ticket needs to be initialized outside of pywinrm using the kinit command)
-
-### Certificate Authentication
-
-To authenticate using SSL certificates, select 'certificate' authentication in asset configuration method and pass following configuration parameters.
-
-* cert_pem_path - A path to signed certificate file that is trusted by the Windows instance, in PEM format
-
-* cert_key_pem_path - A filepath to key used to generate cert_pem file
-
-* ca_trust_path - The certificate of the certificate authority that signed cert_file. It's needed only when you set up your own certificate authority.
-
-It is recommended that these files be placed under the <PHANTOM_HOME>/etc/ssl/ directory. These files must be readable by the phantom-worker user.
 
 
 ### Configuration Variables
@@ -71,10 +44,6 @@ VARIABLE | REQUIRED | TYPE | DESCRIPTION
 **verify_server_cert** |  optional  | boolean | Verify server certificate
 **username** |  required  | string | Username
 **password** |  required  | password | Password
-**auth_method** |  optional  | string | Authentication Method
-**cert_pem_path** |  optional  | string | Path to SSL certificate PEM file
-**cert_key_pem_path** |  optional  | string | Path to SSL key file
-**ca_trust_path** |  optional  | string | Path to trusted CRT file
 
 ### Supported Actions  
 [test connectivity](#action-test-connectivity) - Validate the asset configuration for connectivity using supplied configuration  
