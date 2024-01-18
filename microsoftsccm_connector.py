@@ -41,8 +41,12 @@ class MicrosoftsccmConnector(BaseConnector):
         # Configuration variables
         self._server_url = None
         self._username = None
-        self._password = None
         self._verify_server_cert = False
+        self._auth_type = MSSCCM_DEFAULT_AUTH_METHOD
+        self._cert_pem_path = None
+        self._cert_key_pem_path = None
+        self._cert_ca_trust_path = None
+        self._password = None
 
     def _handle_test_connectivity(self, param):
         """ This function tests the connectivity of an asset with given credentials.
@@ -80,6 +84,21 @@ class MicrosoftsccmConnector(BaseConnector):
             self.debug_print('FIPS is not enabled')
         return fips_enabled
 
+    def _get_protocol(self):
+        if self._auth_type != MSSCCM_DEFAULT_AUTH_METHOD:
+            transport = self._auth_type
+        else:
+            transport = 'basic' if self._get_fips_enabled() else "ntlm"
+
+        server_cert_validation = 'validate' if self._verify_server_cert else 'ignore'
+
+        return Protocol(endpoint=MSSCCM_SERVER_URL.format(url=self._server_url), transport=transport,
+                            username=self._username, password=self._password,
+                            server_cert_validation=server_cert_validation,
+                            cert_pem=self._cert_pem_path,
+                            cert_key_pem=self._cert_key_pem_path,
+                            ca_trust_path=self._cert_ca_trust_path)
+
     def _execute_ps_command(self, action_result, ps_command):
         """ This function is used to execute power shell command.
 
@@ -88,19 +107,8 @@ class MicrosoftsccmConnector(BaseConnector):
         :return: output of executed power shell command
         """
 
+        protocol = self._get_protocol()
         resp_output = None
-        server_cert_validation = 'ignore'
-        transport = 'ntlm'
-
-        if self._get_fips_enabled():
-            transport = 'basic'
-
-        if self._verify_server_cert:
-            server_cert_validation = 'validate'
-
-        protocol = Protocol(endpoint=MSSCCM_SERVER_URL.format(url=self._server_url), transport=transport,
-                            username=self._username, password=self._password,
-                            server_cert_validation=server_cert_validation)
 
         try:
             shell_id = protocol.open_shell()
@@ -293,6 +301,10 @@ class MicrosoftsccmConnector(BaseConnector):
 
         # Optional config parameter
         self._verify_server_cert = config.get(MSSCCM_CONFIG_VERIFY_SSL, False)
+        self._auth_type = config.get(MSSCCM_CONFIG_AUTH_METHOD, MSSCCM_DEFAULT_AUTH_METHOD)
+        self._cert_pem_path = config.get(MSSCCM_CONFIG_CERT_PEM)
+        self._cert_key_pem_path = config.get(MSSCCM_CONFIG_CERT_KEY_PEM)
+        self._cert_ca_trust_path = config.get(MSSCCM_CONFIG_CA_TRUST, MSSCCM_DEFAULT_TRUST_CA)
 
         return phantom.APP_SUCCESS
 
