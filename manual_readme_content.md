@@ -35,6 +35,7 @@ In asset configuration more authentication types can be selected:
 * credssp
 * ntlm
 * basic
+* kerberos (Currently a Kerberos ticket needs to be initialized outside of pywinrm using the kinit command)
 
 ### Certificate Authentication
 
