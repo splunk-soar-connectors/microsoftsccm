@@ -2,7 +2,7 @@
 # Microsoft SCCM
 
 Publisher: Splunk  
-Connector Version: 2.2.15  
+Connector Version: 2.2.1  
 Product Vendor: Microsoft  
 Product Name: SCCM  
 Product Version Supported (regex): ".\*"  
