@@ -92,7 +92,8 @@ class MicrosoftsccmConnector(BaseConnector):
 
         server_cert_validation = 'validate' if self._verify_server_cert else 'ignore'
 
-        return Protocol(endpoint=MSSCCM_SERVER_URL.format(url=self._server_url), transport=transport,
+        return Protocol(endpoint=MSSCCM_SERVER_URL.format(url=self._server_url),
+                            transport=transport,
                             username=self._username, password=self._password,
                             server_cert_validation=server_cert_validation,
                             cert_pem=self._cert_pem_path,
