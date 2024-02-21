@@ -24,7 +24,7 @@ currently unsupported.
 
 ### Authentication
 
-This app uses different default authorisation method, when FIPS is enabled:
+This app uses different default authorisation method depending on whether FIPS is enabled:
 | FIPS     | Default auth |
 |----------|--------------|
 | Enabled  | Basic HTTP   |
