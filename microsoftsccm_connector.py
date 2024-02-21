@@ -298,9 +298,9 @@ class MicrosoftsccmConnector(BaseConnector):
         # Required config parameter
         self._server_url = config[MSSCCM_CONFIG_SERVER_URL]
         self._username = config[MSSCCM_CONFIG_USERNAME]
-        self._password = config[MSSCCM_CONFIG_PASSWORD]
 
         # Optional config parameter
+        self._password = config.get(MSSCCM_CONFIG_PASSWORD)
         self._verify_server_cert = config.get(MSSCCM_CONFIG_VERIFY_SSL, False)
         self._auth_type = config.get(MSSCCM_CONFIG_AUTH_METHOD, MSSCCM_DEFAULT_AUTH_METHOD)
         self._cert_pem_path = config.get(MSSCCM_CONFIG_CERT_PEM)
