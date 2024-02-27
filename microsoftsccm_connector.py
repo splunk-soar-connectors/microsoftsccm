@@ -1,6 +1,6 @@
 # File: microsoftsccm_connector.py
 #
-# Copyright (c) 2017-2023 Splunk Inc.
+# Copyright (c) 2017-2024 Splunk Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -92,7 +92,8 @@ class MicrosoftsccmConnector(BaseConnector):
 
         server_cert_validation = 'validate' if self._verify_server_cert else 'ignore'
 
-        return Protocol(endpoint=MSSCCM_SERVER_URL.format(url=self._server_url), transport=transport,
+        return Protocol(endpoint=MSSCCM_SERVER_URL.format(url=self._server_url),
+                            transport=transport,
                             username=self._username, password=self._password,
                             server_cert_validation=server_cert_validation,
                             cert_pem=self._cert_pem_path,
@@ -297,9 +298,9 @@ class MicrosoftsccmConnector(BaseConnector):
         # Required config parameter
         self._server_url = config[MSSCCM_CONFIG_SERVER_URL]
         self._username = config[MSSCCM_CONFIG_USERNAME]
-        self._password = config[MSSCCM_CONFIG_PASSWORD]
 
         # Optional config parameter
+        self._password = config.get(MSSCCM_CONFIG_PASSWORD)
         self._verify_server_cert = config.get(MSSCCM_CONFIG_VERIFY_SSL, False)
         self._auth_type = config.get(MSSCCM_CONFIG_AUTH_METHOD, MSSCCM_DEFAULT_AUTH_METHOD)
         self._cert_pem_path = config.get(MSSCCM_CONFIG_CERT_PEM)
