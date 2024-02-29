@@ -1,6 +1,6 @@
 # File: microsoftsccm_consts.py
 #
-# Copyright (c) 2017-2023 Splunk Inc.
+# Copyright (c) 2017-2024 Splunk Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,7 +15,16 @@
 MSSCCM_CONFIG_SERVER_URL = "server_url"
 MSSCCM_CONFIG_USERNAME = "username"
 MSSCCM_CONFIG_PASSWORD = "password"  # pragma: allowlist secret
+MSSCCM_CONFIG_AUTH_METHOD = "auth_method"
 MSSCCM_CONFIG_VERIFY_SSL = "verify_server_cert"
+
+MSSCCM_CONFIG_CERT_PEM = "cert_pem_path"
+MSSCCM_CONFIG_CERT_KEY_PEM = "cert_key_pem_path"
+MSSCCM_CONFIG_CA_TRUST = "cert_ca_trust_path"
+
+MSSCCM_DEFAULT_AUTH_METHOD = "default"
+MSSCCM_DEFAULT_TRUST_CA = "legacy_requests"
+
 MSSCCM_SERVER_URL = "{url}/wsman"
 MSSCCM_CONNECTING_ENDPOINT_MSG = "Connecting to endpoint"
 MSSCCM_ERROR_SERVER_CONNECTION = "Connection failed"
