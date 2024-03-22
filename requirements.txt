@@ -1,7 +1,5 @@
 ntlm_auth==1.5.0
 pykerberos==1.2.4
 pywinrm==0.4.3
-requests==2.31.0
 requests_credssp==2.0.0
 requests_ntlm==1.1.0
-urllib3==1.26.18

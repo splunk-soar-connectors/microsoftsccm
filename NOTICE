@@ -15,11 +15,6 @@ Copyright 2008-2020 Eli Bendersky
 Copyright parser in Python
 Copyright parser in Python
 
-Library: requests
-Version: 2.25.0
-License: Apache 2.0
-Kenneth Reitz
-
 Library: six
 Version: 1.16.0
 License: MIT
