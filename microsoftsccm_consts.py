@@ -38,26 +38,32 @@ MSSCCM_PS_COMMAND = 'powershell -command "{command}"'
 MSSCCM_JSON_FORMAT_ERROR = "JSON format error"
 MSSCCM_PARAM_PATCH_NAME = "software_patch_name"
 MSSCCM_PARAM_DEVICE_GROUP_NAME = "device_group_name"
-MSSCCM_GET_SOFTWARE_PATCHES = 'powershell -command "Import-Module ' \
-                              '($Env:SMS_ADMIN_UI_PATH.Substring(0,$Env:SMS_ADMIN_UI_PATH.Length-5)' \
-                              ' + {q}\\ConfigurationManager.psd1{q});$PSD = Get-PSDrive -PSProvider ' \
-                              'CMSite;CD {q}$($PSD):{q};Get-CMSoftwareUpdate -Fast | Select-Object -Property ' \
-                              'ArticleID, LocalizedDisplayName, BulletinID, PercentCompliant, IsDeployed, DatePosted,' \
-                              ' DateRevised, IsSuperseded, IsExpired | ConvertTo-Csv | ConvertFrom-Csv | ' \
-                              'ConvertTo-Json;"'
-MSSCCM_DEPLOY_SOFTWARE_PATCHES = 'powershell -command " ' \
-                                  'Import-Module ($Env:SMS_ADMIN_UI_PATH.Substring(0,$Env:SMS_ADMIN_UI_PATH.Length-5)' \
-                                  ' + {q}\\ConfigurationManager.psd1{q});$PSD = ' \
-                                  'Get-PSDrive -PSProvider CMSite;CD {q}$($PSD):{q}; Start-CMSoftwareUpdateDeployment' \
-                                  ' -SoftwareUpdateName {q}{name}{q} -CollectionName {q}{device_group_name}{q} ' \
-                                  '-DeploymentType Required -VerbosityLevel AllMessages -TimeBasedOn LocalTime ' \
-                                  '-UserNotification DisplaySoftwareCenterOnly -ProtectedType RemoteDistributionPoint' \
-                                  ' -UnprotectedType UnprotectedDistributionPoint -GenerateSuccessAlert $True' \
-                                  ' -DisableOperationsManagerAlert $True -GenerateOperationsManagerAlert $True' \
-                                  ' -AcceptEula ;"'
-MSSCCM_GET_DEVICE_GROUPS = 'powershell -command "Import-Module ' \
-                               '($Env:SMS_ADMIN_UI_PATH.Substring(0,$Env:SMS_ADMIN_UI_PATH.Length-5) + ' \
-                               '{q}\\ConfigurationManager.psd1{q}); ' \
-                               '$PSD = Get-PSDrive -PSProvider' \
-                               ' CMSite;CD {q}$($PSD):{q};Get-CMDeviceCollection | ConvertTo-Csv | ConvertFrom-Csv | ' \
-                               'ConvertTo-Json;"'
+MSSCCM_GET_SOFTWARE_PATCHES = (
+    'powershell -command "Import-Module '
+    "($Env:SMS_ADMIN_UI_PATH.Substring(0,$Env:SMS_ADMIN_UI_PATH.Length-5)"
+    " + {q}\\ConfigurationManager.psd1{q});$PSD = Get-PSDrive -PSProvider "
+    "CMSite;CD {q}$($PSD):{q};Get-CMSoftwareUpdate -Fast | Select-Object -Property "
+    "ArticleID, LocalizedDisplayName, BulletinID, PercentCompliant, IsDeployed, DatePosted,"
+    " DateRevised, IsSuperseded, IsExpired | ConvertTo-Csv | ConvertFrom-Csv | "
+    'ConvertTo-Json;"'
+)
+MSSCCM_DEPLOY_SOFTWARE_PATCHES = (
+    'powershell -command " '
+    "Import-Module ($Env:SMS_ADMIN_UI_PATH.Substring(0,$Env:SMS_ADMIN_UI_PATH.Length-5)"
+    " + {q}\\ConfigurationManager.psd1{q});$PSD = "
+    "Get-PSDrive -PSProvider CMSite;CD {q}$($PSD):{q}; Start-CMSoftwareUpdateDeployment"
+    " -SoftwareUpdateName {q}{name}{q} -CollectionName {q}{device_group_name}{q} "
+    "-DeploymentType Required -VerbosityLevel AllMessages -TimeBasedOn LocalTime "
+    "-UserNotification DisplaySoftwareCenterOnly -ProtectedType RemoteDistributionPoint"
+    " -UnprotectedType UnprotectedDistributionPoint -GenerateSuccessAlert $True"
+    " -DisableOperationsManagerAlert $True -GenerateOperationsManagerAlert $True"
+    ' -AcceptEula ;"'
+)
+MSSCCM_GET_DEVICE_GROUPS = (
+    'powershell -command "Import-Module '
+    "($Env:SMS_ADMIN_UI_PATH.Substring(0,$Env:SMS_ADMIN_UI_PATH.Length-5) + "
+    "{q}\\ConfigurationManager.psd1{q}); "
+    "$PSD = Get-PSDrive -PSProvider"
+    " CMSite;CD {q}$($PSD):{q};Get-CMDeviceCollection | ConvertTo-Csv | ConvertFrom-Csv | "
+    'ConvertTo-Json;"'
+)

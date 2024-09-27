@@ -2,11 +2,11 @@
 # Microsoft SCCM
 
 Publisher: Splunk  
-Connector Version: 2.3.1  
+Connector Version: 2.3.2  
 Product Vendor: Microsoft  
 Product Name: SCCM  
 Product Version Supported (regex): ".\*"  
-Minimum Product Version: 6.1.1  
+Minimum Product Version: 6.2.1  
 
 This app integrates with Microsoft System Center Configuration Manager (SCCM) to execute investigative and generic actions
 

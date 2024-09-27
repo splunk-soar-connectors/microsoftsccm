@@ -10,11 +10,11 @@
     "product_version_regex": ".*",
     "publisher": "Splunk",
     "license": "Copyright (c) 2017-2024 Splunk Inc.",
-    "app_version": "2.3.1",
-    "utctime_updated": "2022-02-03T13:09:24.000000Z",
+    "app_version": "2.3.2",
+    "utctime_updated": "2024-09-27T10:04:45.000000Z",
     "package_name": "phantom_microsoftsccm",
     "main_module": "microsoftsccm_connector.py",
-    "min_phantom_version": "6.1.1",
+    "min_phantom_version": "6.2.1",
     "fips_compliant": true,
     "latest_tested_versions": [
         "Microsoft SCCM v5.00.8412.1000"
@@ -593,11 +593,11 @@
         "wheel": [
             {
                 "module": "cffi",
-                "input_file": "wheels/py36/cffi-1.15.1-cp36-cp36m-manylinux1_x86_64.manylinux_2_5_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
+                "input_file": "wheels/py36/cffi-1.15.1-cp36-cp36m-manylinux1_x86_64.manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_5_x86_64.manylinux_2_28_x86_64.whl"
             },
             {
-                "module": "dataclasses",
-                "input_file": "wheels/py3/dataclasses-0.8-py3-none-any.whl"
+                "module": "cryptography",
+                "input_file": "wheels/py36/cryptography-40.0.2-cp36-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl"
             },
             {
                 "module": "ntlm_auth",
@@ -612,28 +612,12 @@
                 "input_file": "wheels/py36/pykerberos-1.2.4-cp36-cp36m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
             },
             {
-                "module": "pyspnego",
-                "input_file": "wheels/shared/pyspnego-0.5.4-py2.py3-none-any.whl"
-            },
-            {
                 "module": "pywinrm",
                 "input_file": "wheels/shared/pywinrm-0.4.3-py2.py3-none-any.whl"
             },
             {
-                "module": "requests_credssp",
-                "input_file": "wheels/shared/requests_credssp-2.0.0-py2.py3-none-any.whl"
-            },
-            {
                 "module": "requests_ntlm",
                 "input_file": "wheels/shared/requests_ntlm-1.1.0-py2.py3-none-any.whl"
-            },
-            {
-                "module": "six",
-                "input_file": "wheels/shared/six-1.16.0-py2.py3-none-any.whl"
-            },
-            {
-                "module": "xmltodict",
-                "input_file": "wheels/shared/xmltodict-0.13.0-py2.py3-none-any.whl"
             }
         ]
     },
@@ -641,7 +625,11 @@
         "wheel": [
             {
                 "module": "cffi",
-                "input_file": "wheels/py39/cffi-1.16.0-cp39-cp39-manylinux2014_x86_64.manylinux_2_17_x86_64.whl"
+                "input_file": "wheels/py39/cffi-1.17.1-cp39-cp39-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl"
+            },
+            {
+                "module": "cryptography",
+                "input_file": "wheels/py39/cryptography-43.0.1-cp39-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl"
             },
             {
                 "module": "ntlm_auth",
@@ -649,7 +637,7 @@
             },
             {
                 "module": "pycparser",
-                "input_file": "wheels/shared/pycparser-2.21-py2.py3-none-any.whl"
+                "input_file": "wheels/py3/pycparser-2.22-py3-none-any.whl"
             },
             {
                 "module": "pykerberos",
@@ -657,27 +645,15 @@
             },
             {
                 "module": "pyspnego",
-                "input_file": "wheels/py3/pyspnego-0.10.2-py3-none-any.whl"
+                "input_file": "wheels/py3/pyspnego-0.11.1-py3-none-any.whl"
             },
             {
                 "module": "pywinrm",
                 "input_file": "wheels/shared/pywinrm-0.4.3-py2.py3-none-any.whl"
             },
             {
-                "module": "requests_credssp",
-                "input_file": "wheels/shared/requests_credssp-2.0.0-py2.py3-none-any.whl"
-            },
-            {
                 "module": "requests_ntlm",
-                "input_file": "wheels/shared/requests_ntlm-1.1.0-py2.py3-none-any.whl"
-            },
-            {
-                "module": "six",
-                "input_file": "wheels/shared/six-1.16.0-py2.py3-none-any.whl"
-            },
-            {
-                "module": "xmltodict",
-                "input_file": "wheels/shared/xmltodict-0.13.0-py2.py3-none-any.whl"
+                "input_file": "wheels/py3/requests_ntlm-1.3.0-py3-none-any.whl"
             }
         ]
     }
