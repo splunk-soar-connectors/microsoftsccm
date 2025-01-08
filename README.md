@@ -6,12 +6,12 @@ Connector Version: 2.3.2
 Product Vendor: Microsoft  
 Product Name: SCCM  
 Product Version Supported (regex): ".\*"  
-Minimum Product Version: 6.2.1  
+Minimum Product Version: 6.3.0  
 
 This app integrates with Microsoft System Center Configuration Manager (SCCM) to execute investigative and generic actions
 
 [comment]: # "    File: README.md"
-[comment]: # "  Copyright (c) 2017-2024 Splunk Inc."
+[comment]: # "  Copyright (c) 2017-2025 Splunk Inc."
 [comment]: # ""
 [comment]: # "Licensed under the Apache License, Version 2.0 (the 'License');"
 [comment]: # "you may not use this file except in compliance with the License."
