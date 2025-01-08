@@ -9,12 +9,12 @@
     "product_name": "SCCM",
     "product_version_regex": ".*",
     "publisher": "Splunk",
-    "license": "Copyright (c) 2017-2024 Splunk Inc.",
+    "license": "Copyright (c) 2017-2025 Splunk Inc.",
     "app_version": "2.3.2",
-    "utctime_updated": "2024-09-27T10:04:45.000000Z",
+    "utctime_updated": "2025-01-08T12:04:45.000000Z",
     "package_name": "phantom_microsoftsccm",
     "main_module": "microsoftsccm_connector.py",
-    "min_phantom_version": "6.2.1",
+    "min_phantom_version": "6.3.0",
     "fips_compliant": true,
     "latest_tested_versions": [
         "Microsoft SCCM v5.00.8412.1000"
@@ -593,7 +593,7 @@
         "wheel": [
             {
                 "module": "cffi",
-                "input_file": "wheels/py36/cffi-1.15.1-cp36-cp36m-manylinux1_x86_64.manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_5_x86_64.manylinux_2_28_x86_64.whl"
+                "input_file": "wheels/py36/cffi-1.15.1-cp36-cp36m-manylinux1_x86_64.manylinux_2_5_x86_64.manylinux_2_28_x86_64.whl"
             },
             {
                 "module": "cryptography",
@@ -609,7 +609,7 @@
             },
             {
                 "module": "pykerberos",
-                "input_file": "wheels/py36/pykerberos-1.2.4-cp36-cp36m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
+                "input_file": "wheels/py36/pykerberos-1.2.4-cp36-cp36m-manylinux_2_28_x86_64.whl"
             },
             {
                 "module": "pywinrm",
@@ -629,7 +629,7 @@
             },
             {
                 "module": "cryptography",
-                "input_file": "wheels/py39/cryptography-43.0.1-cp39-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl"
+                "input_file": "wheels/py39/cryptography-44.0.0-cp39-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl"
             },
             {
                 "module": "ntlm_auth",
@@ -641,11 +641,11 @@
             },
             {
                 "module": "pykerberos",
-                "input_file": "wheels/py39/pykerberos-1.2.4-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
+                "input_file": "wheels/py39/pykerberos-1.2.4-cp39-cp39-manylinux_2_28_x86_64.whl"
             },
             {
                 "module": "pyspnego",
-                "input_file": "wheels/py3/pyspnego-0.11.1-py3-none-any.whl"
+                "input_file": "wheels/py3/pyspnego-0.11.2-py3-none-any.whl"
             },
             {
                 "module": "pywinrm",

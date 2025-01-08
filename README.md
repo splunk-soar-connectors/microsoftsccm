@@ -6,12 +6,12 @@ Connector Version: 2.3.2
 Product Vendor: Microsoft  
 Product Name: SCCM  
 Product Version Supported (regex): ".\*"  
-Minimum Product Version: 6.2.1  
+Minimum Product Version: 6.3.0  
 
 This app integrates with Microsoft System Center Configuration Manager (SCCM) to execute investigative and generic actions
 
 [comment]: # "    File: README.md"
-[comment]: # "  Copyright (c) 2017-2024 Splunk Inc."
+[comment]: # "  Copyright (c) 2017-2025 Splunk Inc."
 [comment]: # ""
 [comment]: # "Licensed under the Apache License, Version 2.0 (the 'License');"
 [comment]: # "you may not use this file except in compliance with the License."
@@ -77,8 +77,8 @@ You'll also need to setup your instance to support Kerberos:
     run `kinit` periodically to refresh the ticket for the user, alternatively `keytab` file can be created on server and used on client for connectivity.
 
 
-### Configuration Variables
-The below configuration variables are required for this Connector to operate.  These variables are specified when configuring a SCCM asset in SOAR.
+### Configuration variables
+This table lists the configuration variables required to operate Microsoft SCCM. These variables are specified when configuring a SCCM asset in Splunk SOAR.
 
 VARIABLE | REQUIRED | TYPE | DESCRIPTION
 -------- | -------- | ---- | -----------
