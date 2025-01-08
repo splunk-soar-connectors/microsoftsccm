@@ -1,3 +1,3 @@
 **Unreleased**
 
-* Updated dependencies tree (wheels) - PAPP-34756
+* Updated dependencies tree (wheels) to resolve security vulnerabilites - PAPP-34756
