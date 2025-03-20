@@ -30,11 +30,9 @@ from microsoftsccm_consts import *
 
 
 class MicrosoftsccmConnector(BaseConnector):
-
     def __init__(self):
-
         # Call the BaseConnectors init first
-        super(MicrosoftsccmConnector, self).__init__()
+        super().__init__()
 
         self._state = None
 
@@ -153,7 +151,7 @@ class MicrosoftsccmConnector(BaseConnector):
         :return: status success/failure
         """
 
-        self.save_progress("In action handler for: {0}".format(self.get_action_identifier()))
+        self.save_progress(f"In action handler for: {self.get_action_identifier()}")
 
         # Add an action result object to self (BaseConnector) to represent the action for this param
         action_result = self.add_action_result(ActionResult(dict(param)))
@@ -190,7 +188,7 @@ class MicrosoftsccmConnector(BaseConnector):
         :return: status success/failure
         """
 
-        self.save_progress("In action handler for: {0}".format(self.get_action_identifier()))
+        self.save_progress(f"In action handler for: {self.get_action_identifier()}")
 
         # Add an action result object to self (BaseConnector) to represent the action for this param
         action_result = self.add_action_result(ActionResult(dict(param)))
@@ -227,7 +225,7 @@ class MicrosoftsccmConnector(BaseConnector):
         :return: status success/failure
         """
 
-        self.save_progress("In action handler for: {0}".format(self.get_action_identifier()))
+        self.save_progress(f"In action handler for: {self.get_action_identifier()}")
 
         # Add an action result object to self (BaseConnector) to represent the action for this param
         action_result = self.add_action_result(ActionResult(dict(param)))
@@ -282,7 +280,6 @@ class MicrosoftsccmConnector(BaseConnector):
         return action_execution_status
 
     def initialize(self):
-
         # Load the state in initialize, use it to store data
         # that needs to be accessed across actions
         self._state = self.load_state()
@@ -305,14 +302,12 @@ class MicrosoftsccmConnector(BaseConnector):
         return phantom.APP_SUCCESS
 
     def finalize(self):
-
         # Save the state, this data is saved accross actions and app upgrades
         self.save_state(self._state)
         return phantom.APP_SUCCESS
 
 
 if __name__ == "__main__":
-
     import sys
 
     import pudb
