@@ -1,26 +1,4 @@
 Splunk SOAR Microsoft SCCM
 Copyright (c) 2017-2025 Splunk Inc.
 
-Third-party Software Attributions:
-
-Library: ntlm-auth
-Version: 1.5.0
-License: MIT
-Copyright 2018 Jordan Borean, Red Hat
-
-Library: pycparser
-Version: 2.21
-License: BSD 3
-Copyright 2008-2020 Eli Bendersky
-Copyright parser in Python
-Copyright parser in Python
-
-Library: six
-Version: 1.16.0
-License: MIT
-Copyright 2010-2020 Benjamin Peterson
-
-Library: xmltodict
-Version: 0.12.0
-License: MIT
-Copyright 2012 Martin Blech and individual contributors
+Third Party Software Attributions:
