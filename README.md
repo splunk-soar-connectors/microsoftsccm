@@ -1,9 +1,9 @@
 # Microsoft SCCM
 
-Publisher: Splunk \
-Connector Version: 2.3.3 \
-Product Vendor: Microsoft \
-Product Name: SCCM \
+Publisher: Splunk <br>
+Connector Version: 2.3.3 <br>
+Product Vendor: Microsoft <br>
+Product Name: SCCM <br>
 Minimum Product Version: 6.3.0
 
 This app integrates with Microsoft System Center Configuration Manager (SCCM) to execute investigative and generic actions
@@ -82,16 +82,16 @@ VARIABLE | REQUIRED | TYPE | DESCRIPTION
 
 ### Supported Actions
 
-[test connectivity](#action-test-connectivity) - Validate the asset configuration for connectivity using supplied configuration \
-[deploy patch](#action-deploy-patch) - Deploy patch \
-[list patches](#action-list-patches) - List all software patches \
+[test connectivity](#action-test-connectivity) - Validate the asset configuration for connectivity using supplied configuration <br>
+[deploy patch](#action-deploy-patch) - Deploy patch <br>
+[list patches](#action-list-patches) - List all software patches <br>
 [list device groups](#action-list-device-groups) - List all device groups
 
 ## action: 'test connectivity'
 
 Validate the asset configuration for connectivity using supplied configuration
 
-Type: **test** \
+Type: **test** <br>
 Read only: **True**
 
 #### Action Parameters
@@ -106,7 +106,7 @@ No Output
 
 Deploy patch
 
-Type: **generic** \
+Type: **generic** <br>
 Read only: **True**
 
 This action will deploy the specified software patch on all the clients belonging to <b>device_group_name</b>. The software patch should be downloaded on the SCCM site server before deploying it.
@@ -135,7 +135,7 @@ summary.total_objects_successful | numeric | | 1 |
 
 List all software patches
 
-Type: **investigate** \
+Type: **investigate** <br>
 Read only: **True**
 
 Software patches are ordered by software title.
@@ -167,7 +167,7 @@ summary.total_objects_successful | numeric | | 1 |
 
 List all device groups
 
-Type: **investigate** \
+Type: **investigate** <br>
 Read only: **True**
 
 #### Action Parameters
