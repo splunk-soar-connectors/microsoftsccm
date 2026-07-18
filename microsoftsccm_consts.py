@@ -52,7 +52,7 @@ MSSCCM_DEPLOY_SOFTWARE_PATCHES = (
     "Import-Module ($Env:SMS_ADMIN_UI_PATH.Substring(0,$Env:SMS_ADMIN_UI_PATH.Length-5)"
     " + {q}\\ConfigurationManager.psd1{q});$PSD = "
     "Get-PSDrive -PSProvider CMSite;CD {q}$($PSD):{q}; Start-CMSoftwareUpdateDeployment"
-    " -SoftwareUpdateName {q}{name}{q} -CollectionName {q}{device_group_name}{q} "
+    " -SoftwareUpdateName {name} -CollectionName {device_group_name} "
     "-DeploymentType Required -VerbosityLevel AllMessages -TimeBasedOn LocalTime "
     "-UserNotification DisplaySoftwareCenterOnly -ProtectedType RemoteDistributionPoint"
     " -UnprotectedType UnprotectedDistributionPoint -GenerateSuccessAlert $True"

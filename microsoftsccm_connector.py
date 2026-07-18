@@ -157,8 +157,8 @@ class MicrosoftsccmConnector(BaseConnector):
         action_result = self.add_action_result(ActionResult(dict(param)))
 
         # Required values can be accessed directly
-        software_patch_name = param[MSSCCM_PARAM_PATCH_NAME]
-        device_group_name = param[MSSCCM_PARAM_DEVICE_GROUP_NAME]
+        software_patch_name = self._quote_powershell_literal(param[MSSCCM_PARAM_PATCH_NAME])
+        device_group_name = self._quote_powershell_literal(param[MSSCCM_PARAM_DEVICE_GROUP_NAME])
 
         # Execute Command
         status, _ = self._execute_ps_command(
@@ -180,6 +180,11 @@ class MicrosoftsccmConnector(BaseConnector):
             return action_result.get_status()
 
         return action_result.set_status(phantom.APP_SUCCESS, "Patch deployed successfully")
+
+    @staticmethod
+    def _quote_powershell_literal(value):
+        """Return a PowerShell single-quoted string literal."""
+        return f"'{str(value).replace(chr(39), chr(39) * 2)}'"
 
     def _handle_list_patches(self, param):
         """This function is used to list all software patches.
