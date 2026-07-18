@@ -39,7 +39,7 @@ class MicrosoftsccmConnector(BaseConnector):
         # Configuration variables
         self._server_url = None
         self._username = None
-        self._verify_server_cert = False
+        self._verify_server_cert = True
         self._auth_type = MSSCCM_DEFAULT_AUTH_METHOD
         self._cert_pem_path = None
         self._cert_key_pem_path = None
@@ -298,7 +298,9 @@ class MicrosoftsccmConnector(BaseConnector):
 
         # Optional config parameter
         self._password = config.get(MSSCCM_CONFIG_PASSWORD)
-        self._verify_server_cert = config.get(MSSCCM_CONFIG_VERIFY_SSL, False)
+        self._verify_server_cert = config.get(MSSCCM_CONFIG_VERIFY_SSL, True)
+        if not self._verify_server_cert:
+            self.debug_print("WARNING: TLS server certificate verification is disabled for this asset.")
         self._auth_type = config.get(MSSCCM_CONFIG_AUTH_METHOD, MSSCCM_DEFAULT_AUTH_METHOD)
         self._cert_pem_path = config.get(MSSCCM_CONFIG_CERT_PEM)
         self._cert_key_pem_path = config.get(MSSCCM_CONFIG_CERT_KEY_PEM)
