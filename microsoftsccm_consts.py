@@ -48,16 +48,15 @@ MSSCCM_GET_SOFTWARE_PATCHES = (
     'ConvertTo-Json;"'
 )
 MSSCCM_DEPLOY_SOFTWARE_PATCHES = (
-    'powershell -command " '
     "Import-Module ($Env:SMS_ADMIN_UI_PATH.Substring(0,$Env:SMS_ADMIN_UI_PATH.Length-5)"
-    " + {q}\\ConfigurationManager.psd1{q});$PSD = "
-    "Get-PSDrive -PSProvider CMSite;CD {q}$($PSD):{q}; Start-CMSoftwareUpdateDeployment"
+    " + '\\ConfigurationManager.psd1');$PSD = "
+    "Get-PSDrive -PSProvider CMSite;Set-Location ($PSD.Name + ':'); Start-CMSoftwareUpdateDeployment"
     " -SoftwareUpdateName {name} -CollectionName {device_group_name} "
     "-DeploymentType Required -VerbosityLevel AllMessages -TimeBasedOn LocalTime "
     "-UserNotification DisplaySoftwareCenterOnly -ProtectedType RemoteDistributionPoint"
     " -UnprotectedType UnprotectedDistributionPoint -GenerateSuccessAlert $True"
     " -DisableOperationsManagerAlert $True -GenerateOperationsManagerAlert $True"
-    ' -AcceptEula ;"'
+    " -AcceptEula ;"
 )
 MSSCCM_GET_DEVICE_GROUPS = (
     'powershell -command "Import-Module '

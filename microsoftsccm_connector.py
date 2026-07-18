@@ -15,6 +15,7 @@
 #
 #
 # Standard library imports
+import base64
 import json
 
 # Phantom App imports
@@ -161,9 +162,8 @@ class MicrosoftsccmConnector(BaseConnector):
         device_group_name = self._quote_powershell_literal(param[MSSCCM_PARAM_DEVICE_GROUP_NAME])
 
         # Execute Command
-        status, _ = self._execute_ps_command(
-            action_result, MSSCCM_DEPLOY_SOFTWARE_PATCHES.format(name=software_patch_name, device_group_name=device_group_name, q='\\"')
-        )
+        command = MSSCCM_DEPLOY_SOFTWARE_PATCHES.format(name=software_patch_name, device_group_name=device_group_name)
+        status, _ = self._execute_ps_command(action_result, self._encode_powershell_command(command))
 
         # Something went wrong
         if phantom.is_fail(status):
@@ -185,6 +185,12 @@ class MicrosoftsccmConnector(BaseConnector):
     def _quote_powershell_literal(value):
         """Return a PowerShell single-quoted string literal."""
         return f"'{str(value).replace(chr(39), chr(39) * 2)}'"
+
+    @staticmethod
+    def _encode_powershell_command(command):
+        """Encode a script without passing user values through command-line parsing."""
+        encoded_command = base64.b64encode(command.encode("utf-16-le")).decode("ascii")
+        return f"powershell -NoProfile -NonInteractive -EncodedCommand {encoded_command}"
 
     def _handle_list_patches(self, param):
         """This function is used to list all software patches.
