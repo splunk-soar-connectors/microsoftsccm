@@ -15,6 +15,7 @@
 #
 #
 # Standard library imports
+import base64
 import json
 
 # Phantom App imports
@@ -39,7 +40,7 @@ class MicrosoftsccmConnector(BaseConnector):
         # Configuration variables
         self._server_url = None
         self._username = None
-        self._verify_server_cert = False
+        self._verify_server_cert = True
         self._auth_type = MSSCCM_DEFAULT_AUTH_METHOD
         self._cert_pem_path = None
         self._cert_key_pem_path = None
@@ -157,13 +158,12 @@ class MicrosoftsccmConnector(BaseConnector):
         action_result = self.add_action_result(ActionResult(dict(param)))
 
         # Required values can be accessed directly
-        software_patch_name = param[MSSCCM_PARAM_PATCH_NAME]
-        device_group_name = param[MSSCCM_PARAM_DEVICE_GROUP_NAME]
+        software_patch_name = self._quote_powershell_literal(param[MSSCCM_PARAM_PATCH_NAME])
+        device_group_name = self._quote_powershell_literal(param[MSSCCM_PARAM_DEVICE_GROUP_NAME])
 
         # Execute Command
-        status, _ = self._execute_ps_command(
-            action_result, MSSCCM_DEPLOY_SOFTWARE_PATCHES.format(name=software_patch_name, device_group_name=device_group_name, q='\\"')
-        )
+        command = MSSCCM_DEPLOY_SOFTWARE_PATCHES.format(name=software_patch_name, device_group_name=device_group_name)
+        status, _ = self._execute_ps_command(action_result, self._encode_powershell_command(command))
 
         # Something went wrong
         if phantom.is_fail(status):
@@ -180,6 +180,17 @@ class MicrosoftsccmConnector(BaseConnector):
             return action_result.get_status()
 
         return action_result.set_status(phantom.APP_SUCCESS, "Patch deployed successfully")
+
+    @staticmethod
+    def _quote_powershell_literal(value):
+        """Return a PowerShell single-quoted string literal."""
+        return f"'{str(value).replace(chr(39), chr(39) * 2)}'"
+
+    @staticmethod
+    def _encode_powershell_command(command):
+        """Encode a script without passing user values through command-line parsing."""
+        encoded_command = base64.b64encode(command.encode("utf-16-le")).decode("ascii")
+        return f"powershell -NoProfile -NonInteractive -EncodedCommand {encoded_command}"
 
     def _handle_list_patches(self, param):
         """This function is used to list all software patches.
@@ -293,7 +304,9 @@ class MicrosoftsccmConnector(BaseConnector):
 
         # Optional config parameter
         self._password = config.get(MSSCCM_CONFIG_PASSWORD)
-        self._verify_server_cert = config.get(MSSCCM_CONFIG_VERIFY_SSL, False)
+        self._verify_server_cert = config.get(MSSCCM_CONFIG_VERIFY_SSL, True)
+        if not self._verify_server_cert:
+            self.debug_print("WARNING: TLS server certificate verification is disabled for this asset.")
         self._auth_type = config.get(MSSCCM_CONFIG_AUTH_METHOD, MSSCCM_DEFAULT_AUTH_METHOD)
         self._cert_pem_path = config.get(MSSCCM_CONFIG_CERT_PEM)
         self._cert_key_pem_path = config.get(MSSCCM_CONFIG_CERT_KEY_PEM)

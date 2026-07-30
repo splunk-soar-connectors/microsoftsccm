@@ -41,7 +41,7 @@ repos:
     rev: 0.1.0
     hooks:
       - id: soar-app-linter
-        args: ["--single-repo", "--message-level", "error"]
+        args: ["--single-repo", "--message-level", "error", "--no-deps"]
   - repo: https://github.com/hukkin/mdformat
     rev: 0.7.22
     hooks:
@@ -61,7 +61,7 @@ repos:
         exclude: "README.md"
   # Central hooks
   - repo: https://github.com/phantomcyber/dev-cicd-tools
-    rev: v2.1.4
+    rev: v2.2.8
     hooks:
       - id: build-docs
         language: python
